@@ -10,6 +10,8 @@ import { toast } from "sonner"
 import imageCompression from "browser-image-compression"
 import Masonry from 'react-masonry-css'
 import { supabase } from "@/lib/supabase"
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3"
+import { createMissionPost } from "./actions"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -43,7 +45,7 @@ interface Post {
     created_at: string
 }
 
-export default function MissionClient() {
+function MissionClientContent() {
     const [file, setFile] = useState<File | null>(null)
     const [preview, setPreview] = useState<string | null>(null)
     const [uploading, setUploading] = useState(false)
@@ -51,6 +53,7 @@ export default function MissionClient() {
     const [posts, setPosts] = useState<Post[]>([])
     const [postCount, setPostCount] = useState(0)
     const fileInputRef = useRef<HTMLInputElement>(null)
+    const { executeRecaptcha } = useGoogleReCaptcha()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -63,7 +66,6 @@ export default function MissionClient() {
     useEffect(() => {
         fetchPosts();
         fetchCount();
-
         // Subscribe to new changes? (Optional later)
     }, [])
 
@@ -145,6 +147,13 @@ export default function MissionClient() {
         setProgress(10)
 
         try {
+            // 0. Get Captcha Token
+            let captchaToken = "";
+            if (executeRecaptcha) {
+                captchaToken = await executeRecaptcha("mission_upload");
+                console.log("Captcha Token:", captchaToken); // Debug
+            }
+
             // 1. Image Compression
             toast.info("이미지 최적화 중...")
             const compressedFile = await imageCompression(file, {
@@ -172,18 +181,16 @@ export default function MissionClient() {
                 .from('mission-images')
                 .getPublicUrl(fileName);
 
-            // 4. Save Metadata to DB
-            const { error: dbError } = await supabase
-                .from('mission_posts')
-                .insert([
-                    {
-                        image_url: publicUrl,
-                        comment: values.comment,
-                        // display_url can be added if we use CDN resizing later
-                    }
-                ])
+            // 4. Call Server Action to Save Metadata (Verified Insert)
+            const response = await createMissionPost({
+                image_url: publicUrl,
+                comment: values.comment,
+                captchaToken: captchaToken
+            });
 
-            if (dbError) throw dbError;
+            if (!response.success) {
+                throw new Error(response.message || "서버 요청 실패");
+            }
 
             setProgress(100);
             toast.success("인증이 완료되었습니다!", {
@@ -441,5 +448,16 @@ export default function MissionClient() {
                 </div>
             </div>
         </div>
+    )
+}
+
+export default function MissionClient() {
+    return (
+        <GoogleReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
+            language="ko"
+        >
+            <MissionClientContent />
+        </GoogleReCaptchaProvider>
     )
 }
