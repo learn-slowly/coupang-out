@@ -43,21 +43,32 @@ export async function createMissionPost(params: CreatePostParams) {
         }
 
         // 3. Insert into DB
-        if (!supabaseAdmin) {
-            // Fallback for dev without admin key? 
-            // If we rely on this action, we NEED admin key or we fail.
-            // But if user hasn't set it up, maybe we should warn.
-            console.error("Supabase Admin Key is missing.");
-            return { success: false, message: "서버 설정 오류: 관리자 키가 없습니다." }
+        // 3. Insert into DB
+        let sbClient = supabaseAdmin;
+
+        // Fallback: Use Anon Key if Admin Key is missing (Works if RLS allows public insert)
+        if (!sbClient) {
+            const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+            const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+            if (supabaseUrl && supabaseAnonKey) {
+                const { createClient } = require('@supabase/supabase-js');
+                sbClient = createClient(supabaseUrl, supabaseAnonKey);
+            }
         }
 
-        const { error } = await supabaseAdmin
+        if (!sbClient) {
+            console.error("Supabase Client could not be initialized.");
+            return { success: false, message: "서버 설정 오류: 관리자 키가 없습니다. (ENV 확인 필요)" }
+        }
+
+        const { error } = await sbClient
             .from('mission_posts')
             .insert([
                 {
                     image_url: params.image_url,
                     comment: params.comment,
-                    is_approved: true // Auto-approve for now, or false if moderation needed
+                    is_approved: true // Auto-approve for now
                 }
             ])
 
