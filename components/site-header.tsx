@@ -98,7 +98,7 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" asChild className="hidden md:flex">
-              <a href="mailto:contact@coupang-out.com">
+              <a href="mailto:coupangout@gmail.com">
                 문의하기
               </a>
             </Button>

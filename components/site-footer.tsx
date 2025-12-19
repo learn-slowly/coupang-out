@@ -15,7 +15,7 @@ export function SiteFooter() {
                         캠페인 소개
                     </Link>
                     <Separator orientation="vertical" className="h-4" />
-                    <a href="mailto:contact@coupang-out.com" className="hover:underline underline-offset-4">
+                    <a href="mailto:coupangout@gmail.com" className="hover:underline underline-offset-4">
                         문의하기
                     </a>
                     <Separator orientation="vertical" className="h-4" />

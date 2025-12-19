@@ -1,38 +1,44 @@
--- Mission Posts Table
-CREATE TABLE mission_posts (
+-- 1. Create Tables (If not exists)
+CREATE TABLE IF NOT EXISTS mission_posts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   image_url TEXT NOT NULL,
   comment TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  display_url TEXT, -- In case we separate optimization later
-  
-  -- Simple verification flags
+  display_url TEXT,
   is_approved BOOLEAN DEFAULT TRUE
 );
 
--- Index for sorting by date
-CREATE INDEX idx_mission_posts_created_at ON mission_posts (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_mission_posts_created_at ON mission_posts (created_at DESC);
 
--- Storage (Bucket Creation)
--- Note: Must be created in dashboard manually usually, but policy can be set here.
--- Bucket name: 'mission-images'
-
--- Tables policies (RLS)
 ALTER TABLE mission_posts ENABLE ROW LEVEL SECURITY;
 
--- Allow anyone to read posts
+-- 2. Create Storage Bucket (mission-images)
+INSERT INTO storage.buckets (id, name, public) 
+VALUES ('mission-images', 'mission-images', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- 3. Reset & Create Policies (Idempotent)
+
+-- Drop existing policies to avoid conflicts
+DROP POLICY IF EXISTS "Public profiles are viewable by everyone." ON mission_posts;
+DROP POLICY IF EXISTS "Anyone can upload a mission post." ON mission_posts;
+DROP POLICY IF EXISTS "Public Access" ON storage.objects;
+DROP POLICY IF EXISTS "Public Upload" ON storage.objects;
+
+-- Re-create DB Policies
 CREATE POLICY "Public profiles are viewable by everyone."
   ON mission_posts FOR SELECT
   USING ( true );
 
--- Allow anyone to upload (Anon)
 CREATE POLICY "Anyone can upload a mission post."
   ON mission_posts FOR INSERT
   WITH CHECK ( true );
 
--- Storage Policies
--- Bucket: mission-images
--- Policy: Give public access to view
--- Policy: Give public access to upload (for Anon uploads)
+-- Re-create Storage Policies
+CREATE POLICY "Public Access"
+ON storage.objects FOR SELECT
+USING ( bucket_id = 'mission-images' );
 
--- Note: In production, consider stricter RLS with IP checking or Captcha verification on Edge Functions.
+CREATE POLICY "Public Upload"
+ON storage.objects FOR INSERT
+WITH CHECK ( bucket_id = 'mission-images' );

@@ -252,6 +252,20 @@ export default function MissionClient() {
                 <div className="space-y-6">
                     <h2 className="text-2xl font-bold">탈퇴 가이드</h2>
                     <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="video-guide">
+                            <AccordionTrigger className="font-bold text-red-600">🎥 동영상 가이드 (1분 요약)</AccordionTrigger>
+                            <AccordionContent>
+                                <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                                    <video
+                                        controls
+                                        className="w-full h-full"
+                                        src="/coupang-withdrawal-guide.mp4"
+                                    >
+                                        브라우저가 동영상을 지원하지 않습니다.
+                                    </video>
+                                </div>
+                            </AccordionContent>
+                        </AccordionItem>
                         <AccordionItem value="item-1">
                             <AccordionTrigger>1. 쿠팡 와우 멤버십 해지</AccordionTrigger>
                             <AccordionContent>
