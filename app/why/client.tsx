@@ -86,7 +86,7 @@ export default function WhyClient() {
                                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                                     📌 핵심 팩트
                                                 </h4>
-                                                <ul className="space-y-2">
+                                                <ul className="space-y-2 mb-6">
                                                     {issue.facts.slice(0, 3).map((fact, index) => (
                                                         <li key={index} className="flex gap-2 text-sm md:text-base">
                                                             <span className="text-red-500 font-bold">•</span>
@@ -94,6 +94,21 @@ export default function WhyClient() {
                                                         </li>
                                                     ))}
                                                 </ul>
+
+                                                {issue.laws && issue.laws.length > 0 && (
+                                                    <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-md border border-red-100 dark:border-red-900/30">
+                                                        <h5 className="text-sm font-bold text-red-700 dark:text-red-400 mb-2 flex items-center gap-1">
+                                                            ⚖️ 위반 가능 법 조항
+                                                        </h5>
+                                                        <ul className="space-y-1">
+                                                            {issue.laws.map((law, idx) => (
+                                                                <li key={idx} className="text-xs md:text-sm text-red-800 dark:text-red-300">
+                                                                    - {law}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                )}
                                             </div>
 
                                             <div className="flex gap-3 pt-2">
