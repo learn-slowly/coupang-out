@@ -262,7 +262,7 @@ export default function MissionClient() {
                     <h2 className="text-2xl font-bold">탈퇴 가이드</h2>
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="video-guide">
-                            <AccordionTrigger className="font-bold text-red-600">🎥 동영상 가이드 (1분 요약)</AccordionTrigger>
+                            <AccordionTrigger className="font-bold text-red-600">🎥 동영상 가이드 (2분 요약)</AccordionTrigger>
                             <AccordionContent>
                                 <div className="aspect-video rounded-lg overflow-hidden bg-black">
                                     <video
