@@ -1,56 +1,41 @@
 import type { Metadata } from "next"
-import { Card, CardContent } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-    title: "소개",
-    description: "쿠팡 탈퇴 캠페인이 시작된 이유와 누리는 목표.",
+    title: "캠페인 소개",
+    description: "쿠팡아웃 캠페인이 시작된 이유와 목표.",
 }
 
 export default function AboutPage() {
     return (
-        <div className="container py-12 px-4 max-w-4xl mx-auto space-y-8">
-            <div className="text-center space-y-4">
-                <h1 className="text-3xl font-bold tracking-tight">캠페인 소개</h1>
-                <p className="text-muted-foreground text-lg">
-                    왜 우리는 쿠팡을 떠나는가?
+        <div className="container py-16 px-4 max-w-3xl mx-auto space-y-12">
+            <div className="space-y-6 text-center">
+                <h1 className="text-4xl font-bold tracking-tight">우리는 왜 멈춰야 하는가</h1>
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                    편리함이라는 이름 뒤에 숨겨진<br className="md:hidden" /> 고통과 불공정을 이야기합니다.
                 </p>
             </div>
 
-            <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
+            <div className="prose prose-lg dark:prose-invert mx-auto leading-loose">
                 <p>
-                    편리함이라는 이름 아래 가려진 누군가의 고통을 우리는 더 이상 외면할 수 없습니다.
-                    빠른 배송 뒤에는 누군가의 쉴 틈 없는 노동이, 저렴한 가격 뒤에는 누군가의 희생이 있습니다.
+                    <span className="font-bold text-red-600">로켓배송은 혁신이었습니다.</span> 하지만 그 혁신이 누군가의 생명을 담보로 한다면, 그것은 재앙입니다.
                 </p>
                 <p>
-                    쿠팡 탈퇴 캠페인은 단순히 특정 기업을 비난하기 위함이 아닙니다.
-                    우리는 기업이 노동자의 안전을 최우선으로 생각하고,
-                    소비자의 개인정보를 소중히 다루며,
-                    입점 업체와 공정하게 상생하는 건강한 시장을 원합니다.
+                    2020년 이후 25명의 노동자가 과로와 사고로 사망했습니다. 국민 65%의 개인정보가 유출되었지만 책임지는 사람은 없습니다.
+                    납품업체와 소상공인은 거대 플랫폼의 '갑질'에 신음하고 있습니다.
                 </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 pt-8">
-                <Card>
-                    <CardContent className="pt-6 font-bold text-center">
-                        노동자의 생명 존중
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardContent className="pt-6 font-bold text-center">
-                        개인정보 보호 강화
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardContent className="pt-6 font-bold text-center">
-                        공정한 시장 질서
-                    </CardContent>
-                </Card>
-            </div>
-
-            <div className="bg-muted p-6 rounded-lg mt-12 text-center text-sm">
-                <p>
-                    이 캠페인은 자발적인 시민들의 참여로 운영되며, <br />
-                    어떠한 영리적 목적도 추구하지 않습니다.
+                <hr className="my-8 border-muted" />
+                <h3 className="font-bold text-xl mb-4">쿠팡아웃 캠페인의 목표</h3>
+                <ul className="list-disc pl-6 space-y-2">
+                    <li><strong>노동 존중:</strong> 죽지 않고 일할 수 있는 권리 보장</li>
+                    <li><strong>정보 보호:</strong> 개인정보 유출에 대한 투명한 공개와 배상</li>
+                    <li><strong>공정 상생:</strong> 입점 업체와의 불공정 거래 관행 철폐</li>
+                </ul>
+                <p className="mt-8">
+                    우리의 목표는 기업을 망가뜨리는 것이 아닙니다. <br />
+                    기업이 기업답게, <strong>윤리적이고 책임감 있게 행동하도록 만드는 것</strong>입니다.
+                </p>
+                <p className="font-bold text-center mt-12 text-xl">
+                    당신의 작은 불편이<br />누군가의 생명을 구합니다.
                 </p>
             </div>
         </div>

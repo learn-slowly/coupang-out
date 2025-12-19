@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import UnsubscribeClient from "./client"
+import MissionClient from "./client"
 
 export const metadata: Metadata = {
-    title: "탈퇴 인증",
+    title: "미션: 쿠팡아웃",
     description: "쿠팡 탈퇴 인증샷을 올리고 캠페인에 동참해주세요.",
 }
 
-export default function UnsubscribePage() {
-    return <UnsubscribeClient />
+export default function MissionPage() {
+    return <MissionClient />
 }

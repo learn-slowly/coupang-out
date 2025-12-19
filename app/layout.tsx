@@ -14,22 +14,23 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "쿠팡 탈퇴 캠페인 - 쿠팡의 진실을 마주하세요",
-    template: "%s | 쿠팡 탈퇴 캠페인",
+    default: "쿠팡아웃 - 25명의 죽음, 3,370만 개인정보 유출",
+    template: "%s | 쿠팡아웃",
   },
-  description: "노동자 죽음과 개인정보 유출, 더 이상 침묵할 수 없습니다. 쿠팡 탈퇴와 불매 운동에 동참해주세요.",
+  description: "쿠팡의 구조적 문제를 알리고 변화를 만드는 캠페인. 노동자 25명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.",
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "https://tal-pang.vercel.app", // Placeholder
-    title: "쿠팡 탈퇴 캠페인 - 쿠팡의 진실을 마주하세요",
-    description: "25명의 죽음, 3,370만 개인정보 유출. 소비자의 힘으로 변화를 만듭니다.",
-    siteName: "쿠팡 탈퇴 캠페인",
+    url: "https://coupang-out.com",
+    title: "쿠팡아웃 캠페인",
+    description: "노동자 25명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.",
+    siteName: "쿠팡아웃",
   },
   twitter: {
     card: "summary_large_image",
-    title: "쿠팡 탈퇴 캠페인",
-    description: "25명의 죽음, 3,370만 개인정보 유출. 더 이상 침묵할 수 없습니다.",
+    title: "쿠팡아웃",
+    description: "쿠팡의 진실을 알려주세요",
+    creator: "@coupangout",
   },
 };
 

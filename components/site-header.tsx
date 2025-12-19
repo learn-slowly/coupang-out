@@ -2,44 +2,43 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { ModeToggle } from "@/components/mode-toggle"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-
-const routes = [
-  {
-    href: "/issues",
-    label: "문제점",
-  },
-  {
-    href: "/unsubscribe",
-    label: "탈퇴 인증",
-  },
-  {
-    href: "/reports",
-    label: "피해 제보",
-  },
-  {
-    href: "/action",
-    label: "행동하기",
-  },
-  {
-    href: "/about",
-    label: "소개",
-  },
-]
+import { Menu } from "lucide-react"
+import { useState } from "react"
+import { cn } from "@/lib/utils"
 
 export function SiteHeader() {
   const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false)
+
+  const routes = [
+    {
+      href: "/mission",
+      label: "미션: 쿠팡아웃",
+      active: pathname === "/mission",
+    },
+    {
+      href: "/why",
+      label: "왜 쿠팡아웃인가?",
+      active: pathname === "/why",
+    },
+    {
+      href: "/about",
+      label: "캠페인 소개",
+      active: pathname === "/about",
+    },
+  ]
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center px-4 md:px-6">
+      <div className="container flex h-16 items-center px-4 mx-auto">
         <div className="mr-8 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2 font-bold text-xl text-primary">
-            <span>쿠팡 탈퇴</span>
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <span className="text-xl font-bold tracking-tighter text-red-600">
+              쿠팡아웃
+            </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {routes.map((route) => (
@@ -48,7 +47,7 @@ export function SiteHeader() {
                 href={route.href}
                 className={cn(
                   "transition-colors hover:text-foreground/80",
-                  pathname === route.href ? "text-foreground" : "text-foreground/60"
+                  route.active ? "text-foreground" : "text-foreground/60"
                 )}
               >
                 {route.label}
@@ -56,34 +55,58 @@ export function SiteHeader() {
             ))}
           </nav>
         </div>
-        <div className="flex flex-1 items-center justify-between md:hidden">
-          <Link href="/" className="font-bold text-lg text-primary">
-             쿠팡 탈퇴
-          </Link>
-          <Sheet>
+
+        <div className="flex flex-1 items-center justify-between md:justify-end">
+          {/* Mobile Menu */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8 px-0">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
+              <Button
+                variant="ghost"
+                className="px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+              >
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
-              <nav className="flex flex-col space-y-4 mt-8">
+            <SheetContent side="left" className="pr-0">
+              <div className="px-7">
+                <Link
+                  href="/"
+                  className="flex items-center"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="font-bold text-lg text-red-600">쿠팡아웃</span>
+                </Link>
+              </div>
+              <div className="flex flex-col gap-4 mt-8 px-7">
                 {routes.map((route) => (
                   <Link
                     key={route.href}
                     href={route.href}
-                    className="text-lg font-medium transition-colors hover:text-primary"
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "text-lg font-medium transition-colors hover:text-foreground/80",
+                      route.active ? "text-foreground" : "text-foreground/60"
+                    )}
                   >
                     {route.label}
                   </Link>
                 ))}
-              </nav>
+              </div>
             </SheetContent>
           </Sheet>
-        </div>
-        <div className="flex flex-1 items-center justify-end space-x-2 md:flex-none">
-           {/* Add social icons or CTA here if needed */}
+
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" asChild className="hidden md:flex">
+              <a href="mailto:contact@coupang-out.com">
+                문의하기
+              </a>
+            </Button>
+            <div className="md:hidden flex items-center">
+              <Link href="/" className="font-bold mr-4 text-red-600">쿠팡아웃</Link>
+            </div>
+            <ModeToggle />
+          </div>
         </div>
       </div>
     </header>
