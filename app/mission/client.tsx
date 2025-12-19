@@ -233,16 +233,25 @@ export default function MissionClient() {
                 <div className="col-span-2 md:col-span-4 mb-4">
                     <span className="text-sm text-muted-foreground font-medium">현재까지 참여 인원</span>
                     <div className="text-5xl md:text-6xl font-black text-red-600 mt-2 tracking-tighter transition-all">
-                        {(12345 + postCount).toLocaleString()}<span className="text-2xl md:text-3xl text-foreground font-bold ml-1">명</span>
+                        {postCount.toLocaleString()}<span className="text-2xl md:text-3xl text-foreground font-bold ml-1">명</span>
                     </div>
                 </div>
                 <div className="border-r border-zinc-200 dark:border-zinc-800 last:border-0 pl-4 md:pl-0">
                     <p className="text-xs text-muted-foreground uppercase tracking-wider">오늘</p>
-                    <p className="text-xl font-bold">+{postCount}</p>
+                    <p className="text-xl font-bold">
+                        +{posts.filter(p => new Date(p.created_at).toDateString() === new Date().toDateString()).length}
+                    </p>
                 </div>
                 <div>
                     <p className="text-xs text-muted-foreground uppercase tracking-wider">이번 주</p>
-                    <p className="text-xl font-bold">+{892 + postCount}</p>
+                    <p className="text-xl font-bold">
+                        +{posts.filter(p => {
+                            const d = new Date(p.created_at);
+                            const now = new Date();
+                            const oneWeekAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+                            return d > oneWeekAgo;
+                        }).length}
+                    </p>
                 </div>
             </div>
 
