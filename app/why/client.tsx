@@ -10,7 +10,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { issuesData, categoryLabels, IssueCategory, Issue } from "@/lib/data"
-import { Share2, ExternalLink, Instagram, Twitter, Facebook, Link as LinkIcon, Download, X } from "lucide-react"
+import { Share2, ExternalLink, Instagram, Twitter, Facebook, Link as LinkIcon, Download, X, ChevronDown } from "lucide-react"
 import { toast } from "sonner"
 import {
     Dialog,
@@ -64,90 +64,8 @@ export default function WhyClient() {
                         {issuesData
                             .filter(issue => issue.category === cat)
                             .map((issue) => (
-                                <Card key={issue.id} className="w-full border-2 overflow-hidden">
-                                    <div className="md:flex">
-                                        <div className="md:w-full p-6 space-y-6">
-                                            <div className="flex justify-between items-start gap-4">
-                                                <div>
-                                                    <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-0">
-                                                        {categoryLabels[issue.category]}
-                                                    </Badge>
-                                                    <CardTitle className="text-2xl md:text-3xl text-red-600 mb-2">{issue.title}</CardTitle>
-                                                    <div className="text-lg font-semibold text-foreground mb-2">
-                                                        {issue.subtitle}
-                                                    </div>
-                                                    <CardDescription className="text-base text-muted-foreground leading-relaxed">
-                                                        {issue.description}
-                                                    </CardDescription>
-                                                </div>
-                                            </div>
 
-                                            <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-5 border">
-                                                <h4 className="font-semibold mb-3 flex items-center gap-2">
-                                                    📌 핵심 팩트
-                                                </h4>
-                                                <ul className="space-y-2 mb-6">
-                                                    {issue.facts.slice(0, 3).map((fact, index) => (
-                                                        <li key={index} className="flex gap-2 text-sm md:text-base">
-                                                            <span className="text-red-500 font-bold">•</span>
-                                                            <span>{fact}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-
-                                                {issue.laws && issue.laws.length > 0 && (
-                                                    <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-md border border-red-100 dark:border-red-900/30">
-                                                        <h5 className="text-sm font-bold text-red-700 dark:text-red-400 mb-2 flex items-center gap-1">
-                                                            ⚖️ 위반 가능 법 조항
-                                                        </h5>
-                                                        <ul className="space-y-1">
-                                                            {issue.laws.map((law, idx) => (
-                                                                <li key={idx} className="text-xs md:text-sm text-red-800 dark:text-red-300">
-                                                                    - {law}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            <div className="flex gap-3 pt-2">
-                                                <Button size="lg" className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold gap-2" onClick={() => handleShareClick(issue)}>
-                                                    <Share2 className="h-5 w-5" />
-                                                    공유하여 알리기
-                                                </Button>
-                                                <Accordion type="single" collapsible className="flex-1">
-                                                    <AccordionItem value="details" className="border-b-0">
-                                                        <AccordionTrigger className="justify-center py-2 px-4 border rounded-md hover:bg-zinc-100 hover:no-underline dark:hover:bg-zinc-800 text-sm h-11">
-                                                            자세히 보기
-                                                        </AccordionTrigger>
-                                                        <AccordionContent className="pt-4">
-                                                            <div className="bg-muted p-4 rounded-lg mt-2">
-                                                                <ul className="list-disc pl-5 space-y-2 text-sm mb-4">
-                                                                    {issue.facts.map((fact, i) => (
-                                                                        <li key={i}>{fact}</li>
-                                                                    ))}
-                                                                </ul>
-                                                                <div className="pt-4 border-t border-zinc-200 dark:border-zinc-700">
-                                                                    <p className="text-xs font-semibold mb-2 text-muted-foreground">출처</p>
-                                                                    <ul className="space-y-1">
-                                                                        {issue.sources.map((s, i) => (
-                                                                            <li key={i}>
-                                                                                <a href={s.url} target="_blank" rel="noreferrer" className="text-xs text-blue-600 hover:underline flex items-center gap-1">
-                                                                                    {s.title} <ExternalLink className="h-3 w-3" />
-                                                                                </a>
-                                                                            </li>
-                                                                        ))}
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </AccordionContent>
-                                                    </AccordionItem>
-                                                </Accordion>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Card>
+                                <IssueCard key={issue.id} issue={issue} onShare={() => handleShareClick(issue)} />
                             ))}
                     </TabsContent>
                 ))}
@@ -198,4 +116,106 @@ export default function WhyClient() {
             </Dialog>
         </div>
     )
+}
+
+function IssueCard({ issue, onShare }: { issue: Issue; onShare: () => void }) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <Card className="w-full border-2 overflow-hidden transition-all duration-300">
+            <div className="p-6 space-y-6">
+                <div className="flex justify-between items-start gap-4">
+                    <div>
+                        <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-0">
+                            {categoryLabels[issue.category]}
+                        </Badge>
+                        <CardTitle className="text-2xl md:text-3xl text-red-600 mb-2">{issue.title}</CardTitle>
+                        <div className="text-lg font-semibold text-foreground mb-2">
+                            {issue.subtitle}
+                        </div>
+                        <CardDescription className="text-base text-muted-foreground leading-relaxed">
+                            {issue.description}
+                        </CardDescription>
+                    </div>
+                </div>
+
+                <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-5 border">
+                    <h4 className="font-semibold mb-3 flex items-center gap-2">
+                        📌 핵심 팩트
+                    </h4>
+                    <ul className="space-y-2 mb-6">
+                        {issue.facts.slice(0, 3).map((fact, index) => (
+                            <li key={index} className="flex gap-2 text-sm md:text-base">
+                                <span className="text-red-500 font-bold">•</span>
+                                <span>{fact}</span>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {issue.laws && issue.laws.length > 0 && (
+                        <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-md border border-red-100 dark:border-red-900/30">
+                            <h5 className="text-sm font-bold text-red-700 dark:text-red-400 mb-2 flex items-center gap-1">
+                                ⚖️ 위반 가능 법 조항
+                            </h5>
+                            <ul className="space-y-1">
+                                {issue.laws.map((law, idx) => (
+                                    <li key={idx} className="text-xs md:text-sm text-red-800 dark:text-red-300">
+                                        - {law}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                    <Button size="lg" className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold gap-2" onClick={onShare}>
+                        <Share2 className="h-5 w-5" />
+                        공유하여 알리기
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        className={`flex-1 gap-2 border-zinc-300 dark:border-zinc-700 transition-colors ${isOpen ? 'bg-zinc-100 dark:bg-zinc-800' : ''}`}
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? '접기' : '자세히 보기'}
+                        <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                    </Button>
+                </div>
+            </div>
+
+            {/* Full Width Expanded Content */}
+            {isOpen && (
+                <div className="border-t-2 border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 animate-in slide-in-from-top-2 duration-200">
+                    <div className="p-6 md:p-8 space-y-6">
+                        <div>
+                            <h4 className="font-bold text-lg mb-4">상세 내용</h4>
+                            <ul className="list-disc pl-5 space-y-3 text-base">
+                                {issue.facts.map((fact, i) => (
+                                    <li key={i} className="leading-relaxed">{fact}</li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="pt-6 border-t border-zinc-200 dark:border-zinc-700">
+                            <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm text-muted-foreground">
+                                🔗 관련 기사 및 출처
+                            </h4>
+                            <ul className="grid gap-2">
+                                {issue.sources.map((s, i) => (
+                                    <li key={i}>
+                                        <a href={s.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 p-3 bg-white dark:bg-zinc-800 border rounded-md hover:border-red-200 hover:shadow-sm transition-all group">
+                                            <span className="text-sm font-medium group-hover:text-red-600 transition-colors flex-1">{s.title}</span>
+                                            <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-red-600" />
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </Card>
+    );
 }
