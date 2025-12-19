@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, AlertCircle } from "lucide-react";
 import { RecentActivities } from "@/components/recent-activities";
+import { ParticipantCounter } from "@/components/participant-counter";
 
 export default function Home() {
   return (
@@ -68,7 +69,9 @@ export default function Home() {
                 </div>
                 <p className="text-zinc-600 dark:text-zinc-300 text-lg">
                   쿠팡 탈퇴 인증샷을 올리고 변화에 동참해주세요.<br />
-                  <span className="text-red-600 font-semibold mt-2 inline-block">현재 12,345명 참여 중 &rarr;</span>
+                  <span className="text-red-600 font-semibold mt-2 inline-block">
+                    <ParticipantCounter />
+                  </span>
                 </p>
               </div>
             </Link>
