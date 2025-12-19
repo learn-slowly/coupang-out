@@ -1,14 +1,15 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import Image from "next/image"
-import { UploadCloud, X, Loader2, ChevronDown } from "lucide-react"
+import { UploadCloud, X, Loader2, ChevronDown, CheckCircle2 } from "lucide-react"
 import { toast } from "sonner"
 import imageCompression from "browser-image-compression"
 import Masonry from 'react-masonry-css'
+import { supabase } from "@/lib/supabase"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -37,26 +38,18 @@ const formSchema = z.object({
 
 interface Post {
     id: string
-    imageUrl: string
+    image_url: string
     comment?: string
-    date: string
+    created_at: string
 }
-
-// Mock Data
-const MOCK_POSTS: Post[] = [
-    { id: '1', imageUrl: '/placeholder.svg', comment: '탈퇴 완료했습니다. 더 이상 못 참겠네요.', date: '2023-12-19' },
-    { id: '2', imageUrl: '/placeholder.svg', comment: '안녕히 계세요.', date: '2023-12-19' },
-    { id: '3', imageUrl: '/placeholder.svg', comment: '', date: '2023-12-18' },
-    { id: '4', imageUrl: '/placeholder.svg', comment: '소상공인 갑질 너무합니다.', date: '2023-12-18' },
-    { id: '5', imageUrl: '/placeholder.svg', comment: '로켓와우 해지했습니다.', date: '2023-12-18' },
-    { id: '6', imageUrl: '/placeholder.svg', comment: '쿠팡플레이도 지웠어요.', date: '2023-12-17' },
-]
 
 export default function MissionClient() {
     const [file, setFile] = useState<File | null>(null)
     const [preview, setPreview] = useState<string | null>(null)
     const [uploading, setUploading] = useState(false)
     const [progress, setProgress] = useState(0)
+    const [posts, setPosts] = useState<Post[]>([])
+    const [postCount, setPostCount] = useState(0)
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -65,6 +58,40 @@ export default function MissionClient() {
             comment: "",
         },
     })
+
+    // Fetch initial posts and count
+    useEffect(() => {
+        fetchPosts();
+        fetchCount();
+
+        // Subscribe to new changes? (Optional later)
+    }, [])
+
+    const fetchPosts = async () => {
+        if (!supabase) return;
+        const { data, error } = await supabase
+            .from('mission_posts')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(20);
+
+        if (error) {
+            console.error('Error fetching posts:', error);
+        } else {
+            setPosts(data || []);
+        }
+    }
+
+    const fetchCount = async () => {
+        if (!supabase) return;
+        const { count, error } = await supabase
+            .from('mission_posts')
+            .select('*', { count: 'exact', head: true });
+
+        if (!error && count !== null) {
+            setPostCount(count);
+        }
+    }
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0]
@@ -84,8 +111,8 @@ export default function MissionClient() {
             toast.error("이미지 파일만 업로드 가능합니다.")
             return
         }
-        if (selectedFile.size > 5 * 1024 * 1024) {
-            toast.error("파일 크기는 5MB 이하여야 합니다.")
+        if (selectedFile.size > 10 * 1024 * 1024) {
+            toast.error("파일 크기는 10MB 이하여야 합니다.")
             return
         }
 
@@ -109,35 +136,75 @@ export default function MissionClient() {
             return
         }
 
+        if (!supabase) {
+            toast.error("Supabase 연결이 설정되지 않았습니다.");
+            return;
+        }
+
         setUploading(true)
-        setProgress(0)
+        setProgress(10)
 
         try {
-            toast.info("이미지 압축 중...")
+            // 1. Image Compression
+            toast.info("이미지 최적화 중...")
             const compressedFile = await imageCompression(file, {
                 maxSizeMB: 1,
-                maxWidthOrHeight: 1280,
-                useWebWorker: true
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
+                onProgress: (p) => setProgress(10 + (p * 0.4)) // 10% ~ 50%
             })
 
-            for (let i = 0; i <= 100; i += 10) {
-                setProgress(i)
-                await new Promise(resolve => setTimeout(resolve, 100))
-            }
+            // 2. Upload to Supabase Storage
+            const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${compressedFile.name.split('.').pop()}`;
 
-            console.log("Uploaded:", compressedFile.name, values.comment)
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('mission-images')
+                .upload(fileName, compressedFile, {
+                    cacheControl: '3600',
+                    upsert: false
+                });
+
+            if (uploadError) throw uploadError;
+            setProgress(80);
+
+            // 3. Get Public URL
+            const { data: { publicUrl } } = supabase.storage
+                .from('mission-images')
+                .getPublicUrl(fileName);
+
+            // 4. Save Metadata to DB
+            const { error: dbError } = await supabase
+                .from('mission_posts')
+                .insert([
+                    {
+                        image_url: publicUrl,
+                        comment: values.comment,
+                        // display_url can be added if we use CDN resizing later
+                    }
+                ])
+
+            if (dbError) throw dbError;
+
+            setProgress(100);
             toast.success("인증이 완료되었습니다!", {
                 description: "참여해 주셔서 감사합니다."
             })
 
+            // Refresh List
+            fetchPosts();
+            fetchCount();
+
             form.reset()
             removeFile()
-            setUploading(false)
 
-        } catch (error) {
+        } catch (error: any) {
             console.error(error)
-            toast.error("업로드 중 오류가 발생했습니다.")
+            toast.error("업로드에 실패했습니다.", {
+                description: error.message || "잠시 후 다시 시도해주세요."
+            })
+        } finally {
             setUploading(false)
+            setProgress(0)
         }
     }
 
@@ -161,21 +228,21 @@ export default function MissionClient() {
                 </p>
             </div>
 
-            {/* Dashboard Mock */}
+            {/* Dashboard Mock (with Real Count) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-zinc-50 dark:bg-zinc-900 p-8 rounded-2xl border text-center">
                 <div className="col-span-2 md:col-span-4 mb-4">
                     <span className="text-sm text-muted-foreground font-medium">현재까지 참여 인원</span>
-                    <div className="text-5xl md:text-6xl font-black text-red-600 mt-2 tracking-tighter">
-                        12,345<span className="text-2xl md:text-3xl text-foreground font-bold ml-1">명</span>
+                    <div className="text-5xl md:text-6xl font-black text-red-600 mt-2 tracking-tighter transition-all">
+                        {(12345 + postCount).toLocaleString()}<span className="text-2xl md:text-3xl text-foreground font-bold ml-1">명</span>
                     </div>
                 </div>
                 <div className="border-r border-zinc-200 dark:border-zinc-800 last:border-0 pl-4 md:pl-0">
                     <p className="text-xs text-muted-foreground uppercase tracking-wider">오늘</p>
-                    <p className="text-xl font-bold">+128</p>
+                    <p className="text-xl font-bold">+{postCount}</p>
                 </div>
                 <div>
                     <p className="text-xs text-muted-foreground uppercase tracking-wider">이번 주</p>
-                    <p className="text-xl font-bold">+892</p>
+                    <p className="text-xl font-bold">+{892 + postCount}</p>
                 </div>
             </div>
 
@@ -255,7 +322,7 @@ export default function MissionClient() {
                                             <p className="font-medium">
                                                 클릭 또는 드래그하여 업로드
                                             </p>
-                                            <p className="text-xs text-muted-foreground">JPG, PNG, WebP (최대 5MB)</p>
+                                            <p className="text-xs text-muted-foreground">JPG, PNG, WebP (최대 10MB)</p>
                                         </div>
                                     )}
                                 </div>
@@ -315,41 +382,39 @@ export default function MissionClient() {
                     className="flex w-auto -ml-4"
                     columnClassName="pl-4 bg-clip-padding"
                 >
-                    {MOCK_POSTS.map((post) => (
-                        <div key={post.id} className="mb-4 break-inside-avoid shadow-sm hover:shadow-md transition-shadow duration-200 bg-white dark:bg-zinc-900 border rounded-lg overflow-hidden">
-                            <div className="relative bg-zinc-100 aspect-[4/3]">
-                                {/* In real app, use next/image with proper Loading */}
-                                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/30">
-                                    <UploadCloud className="h-8 w-8" />
+                    {posts.length === 0 ? (
+                        // Skeleton Loading or Empty
+                        Array.from({ length: 6 }).map((_, i) => (
+                            <div key={i} className="mb-4 break-inside-avoid bg-zinc-100 dark:bg-zinc-800 rounded-lg aspect-[4/3] animate-pulse" />
+                        ))
+                    ) : (
+                        posts.map((post) => (
+                            <div key={post.id} className="mb-4 break-inside-avoid shadow-sm hover:shadow-md transition-shadow duration-200 bg-white dark:bg-zinc-900 border rounded-lg overflow-hidden relative group">
+                                <div className="relative bg-zinc-100 w-full">
+                                    <Image
+                                        src={post.image_url}
+                                        alt="인증샷"
+                                        width={500}
+                                        height={500}
+                                        className="w-full h-auto object-cover"
+                                        unoptimized={true} // Allow external Supabase URLs
+                                    />
                                 </div>
+                                {post.comment && (
+                                    <div className="p-4">
+                                        <p className="text-sm font-medium leading-relaxed line-clamp-4">{post.comment}</p>
+                                        <p className="text-xs text-muted-foreground mt-3 pt-3 border-t">
+                                            {new Date(post.created_at).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
-                            {post.comment && (
-                                <div className="p-4">
-                                    <p className="text-sm font-medium leading-relaxed line-clamp-4">{post.comment}</p>
-                                    <p className="text-xs text-muted-foreground mt-3 pt-3 border-t">{post.date}</p>
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                    {MOCK_POSTS.map(post => ({ ...post, id: post.id + "_dup1" })).map((post) => (
-                        <div key={post.id} className="mb-4 break-inside-avoid shadow-sm hover:shadow-md transition-shadow duration-200 bg-white dark:bg-zinc-900 border rounded-lg overflow-hidden">
-                            <div className="relative bg-zinc-100 aspect-square">
-                                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/30">
-                                    <UploadCloud className="h-8 w-8" />
-                                </div>
-                            </div>
-                            {post.comment && (
-                                <div className="p-4">
-                                    <p className="text-sm font-medium leading-relaxed line-clamp-4">{post.comment}</p>
-                                    <p className="text-xs text-muted-foreground mt-3 pt-3 border-t">{post.date}</p>
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </Masonry>
 
                 <div className="flex justify-center pt-8">
-                    <Button variant="secondary" size="lg">더 많은 인증샷 보기</Button>
+                    <Button variant="secondary" size="lg" disabled>더 많은 인증샷 보기 (준비중)</Button>
                 </div>
             </div>
         </div>
