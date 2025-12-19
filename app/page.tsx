@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { CheckCircle2, AlertCircle } from "lucide-react";
+import { RecentActivities } from "@/components/recent-activities";
 
 export default function Home() {
   return (
@@ -103,22 +103,7 @@ export default function Home() {
               전체 보기 &rarr;
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {/* Mock Data */}
-            {[
-              "탈퇴 완료했습니다.",
-              "더 이상 못 참겠네요.",
-              "안녕히 계세요.",
-              "소상공인 갑질 너무합니다."
-            ].map((comment, i) => (
-              <div key={i} className="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border shadow-sm">
-                <div className="aspect-square bg-zinc-200 dark:bg-zinc-700 animate-pulse" />
-                <div className="p-3">
-                  <p className="text-xs text-muted-foreground line-clamp-1">{comment}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <RecentActivities />
         </div>
       </section>
     </div>
