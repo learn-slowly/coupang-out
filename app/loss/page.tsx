@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function LossPage() {
     return (
-        <main className="bg-zinc-950 min-h-screen text-white selection:bg-red-500/30">
+        <main className="bg-zinc-950 h-[100dvh] overflow-y-scroll snap-y snap-mandatory text-white selection:bg-red-500/30 scroll-smooth">
             <Hero />
 
             <div className="relative">
