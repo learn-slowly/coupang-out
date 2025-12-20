@@ -33,7 +33,7 @@ export default function StorySection({ story, index }: { story: Story; index: nu
     return (
         <section
             ref={containerRef}
-            className="h-[100dvh] w-full relative flex items-center justify-center sticky top-0 overflow-hidden border-t border-zinc-900 bg-zinc-950 snap-start"
+            className="h-[100dvh] w-full relative flex items-start pt-24 md:items-center md:justify-center md:pt-0 sticky top-0 overflow-hidden border-t border-zinc-900 bg-zinc-950 snap-start"
         >
             {renderBackground()}
 
