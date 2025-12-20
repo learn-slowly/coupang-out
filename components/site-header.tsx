@@ -25,6 +25,11 @@ export function SiteHeader() {
       active: pathname === "/why",
     },
     {
+      href: "/loss",
+      label: "쿠팡이 가져간 것들",
+      active: pathname === "/loss",
+    },
+    {
       href: "/about",
       label: "캠페인 소개",
       active: pathname === "/about",
