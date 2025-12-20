@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react"
 
 export default function Hero() {
     return (
-        <section className="h-[100dvh] w-full snap-start flex flex-col items-center justify-center relative bg-zinc-950 text-white overflow-hidden">
+        <section className="h-[100dvh] w-full snap-start flex flex-col items-center justify-start pt-32 md:justify-center md:pt-0 relative bg-zinc-950 text-white overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 via-zinc-950 to-zinc-950 z-0" />
 
             <div className="z-10 text-center space-y-6 px-4">

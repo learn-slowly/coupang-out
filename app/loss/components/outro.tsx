@@ -15,7 +15,7 @@ export default function Outro() {
     }
 
     return (
-        <section className="h-[100dvh] w-full snap-start flex flex-col items-center justify-center relative bg-zinc-950 text-white border-t border-zinc-900">
+        <section className="h-[100dvh] w-full snap-start flex flex-col items-center justify-start pt-32 md:justify-center md:pt-0 relative bg-zinc-950 text-white border-t border-zinc-900">
             <div className="text-center space-y-8 px-4 z-10">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
