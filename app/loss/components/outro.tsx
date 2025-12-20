@@ -53,7 +53,7 @@ export default function Outro() {
                     <Button
                         size="lg"
                         variant="outline"
-                        className="border-zinc-700 text-white hover:bg-zinc-900 gap-2"
+                        className="bg-transparent border-zinc-700 text-white hover:bg-zinc-900 hover:text-white gap-2"
                         onClick={handleRestart}
                     >
                         <RefreshCw className="w-4 h-4" /> 다시 보기
