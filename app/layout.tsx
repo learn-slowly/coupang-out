@@ -73,7 +73,10 @@ const jsonLd = {
   "description": "쿠팡의 노동 환경 개선과 소비자 권리 보호를 위한 캠페인"
 }
 
-// ... imports remain the same
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
