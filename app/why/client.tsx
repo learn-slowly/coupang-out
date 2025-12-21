@@ -104,116 +104,96 @@ export default function WhyClient() {
                     </DialogHeader>
 
                     {selectedIssue && (
-                        <div className="grid grid-cols-2 gap-4 py-4">
-                            <div className="col-span-2">
-                                <Button
-                                    className="w-full bg-[#FAE100] hover:bg-[#FADB00] text-[#371D1E] font-bold gap-2"
-                                    onClick={() => {
-                                        // 1. Check if SDK is loaded
-                                        if (!window.Kakao) {
-                                            alert("카카오톡 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
-                                            return;
-                                        }
+                        <div className="flex flex-col gap-3 py-4">
+                            {/* 1. KakaoTalk (Yellow) */}
+                            <Button
+                                className="w-full h-12 bg-[#FAE100] hover:bg-[#FADB00] text-[#371D1E] font-bold gap-2 text-base"
+                                onClick={() => {
+                                    // 1. Check if SDK is loaded
+                                    if (!window.Kakao) {
+                                        alert("카카오톡 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+                                        return;
+                                    }
 
-                                        // 2. Initialize if needed
-                                        if (!window.Kakao.isInitialized()) {
-                                            window.Kakao.init('22045de684de335a6e0ac79accb0b638');
-                                        }
+                                    // 2. Initialize if needed
+                                    if (!window.Kakao.isInitialized()) {
+                                        window.Kakao.init('22045de684de335a6e0ac79accb0b638');
+                                    }
 
-                                        // 3. Send Share
+                                    // 3. Send Share
+                                    try {
+                                        window.Kakao.Share.sendScrap({
+                                            requestUrl: window.location.href,
+                                        });
+                                    } catch (err) {
+                                        console.error("Share Error:", err);
+                                        alert("공유하기 도중 오류가 발생했습니다.");
+                                    }
+                                }}
+                            >
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                    <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.557 1.707 4.8 4.27 6.054-.188.702-.682 2.545-.78 2.94-.123.49.178.483.376.351.274-.18 4.217-2.857 4.908-3.325.395.056.8.087 1.226.087 4.97 0 9-3.186 9-7.116C21 6.185 16.97 3 12 3z" />
+                                </svg>
+                                카카오톡으로 공유하기
+                            </Button>
+
+                            {/* 2. X (Twitter) (Sky Blue) */}
+                            <Button
+                                className="w-full h-12 bg-sky-100 hover:bg-sky-200 text-sky-900 border border-sky-200 font-bold gap-2 text-base"
+                                onClick={() => {
+                                    const text = selectedIssue.shareText.twitter;
+                                    const url = window.location.href;
+                                    const appUrl = `twitter://post?message=${encodeURIComponent(text)}`;
+                                    const webUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+
+                                    // Try App first, then Web
+                                    const start = new Date().getTime();
+                                    window.location.href = appUrl;
+                                    setTimeout(() => {
+                                        if (new Date().getTime() - start < 2000) {
+                                            window.open(webUrl, '_blank');
+                                        }
+                                    }, 500);
+                                }}>
+                                <Twitter className="h-5 w-5" />
+                                X (Twitter)로 공유하기
+                            </Button>
+
+                            {/* 3. System Share (Gray) */}
+                            <Button
+                                className="w-full h-12 bg-zinc-100 dark:bg-zinc-800 text-foreground hover:bg-zinc-200 dark:hover:bg-zinc-700 font-bold gap-2 text-base"
+                                onClick={async () => {
+                                    if (navigator.share) {
                                         try {
-                                            window.Kakao.Share.sendScrap({
-                                                requestUrl: window.location.href,
+                                            await navigator.share({
+                                                title: selectedIssue.title,
+                                                text: selectedIssue.subtitle,
+                                                url: window.location.href,
                                             });
                                         } catch (err) {
-                                            console.error("Share Error:", err);
-                                            alert("공유하기 도중 오류가 발생했습니다.");
+                                            console.log("Share canceled", err);
                                         }
-                                    }}
-                                >
-                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                                        <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.557 1.707 4.8 4.27 6.054-.188.702-.682 2.545-.78 2.94-.123.49.178.483.376.351.274-.18 4.217-2.857 4.908-3.325.395.056.8.087 1.226.087 4.97 0 9-3.186 9-7.116C21 6.185 16.97 3 12 3z" />
-                                    </svg>
-                                    카카오톡 공유하기
-                                </Button>
-                            </div>
-
-                            <div className="col-span-2">
-                                <Button
-                                    className="w-full bg-zinc-100 dark:bg-zinc-800 text-foreground hover:bg-zinc-200 dark:hover:bg-zinc-700 font-bold gap-2"
-                                    onClick={async () => {
-                                        if (navigator.share) {
-                                            try {
-                                                await navigator.share({
-                                                    title: selectedIssue.title,
-                                                    text: selectedIssue.subtitle,
-                                                    url: window.location.href,
-                                                });
-                                            } catch (err) {
-                                                console.log("Share canceled", err);
-                                            }
-                                        } else {
-                                            toast.error("이 기기에서는 시스템 공유를 지원하지 않습니다.");
-                                        }
-                                    }}
-                                >
-                                    <Share2 className="w-5 h-5" />
-                                    더 많은 앱으로 공유하기 (페이스북/문자 등)
-                                </Button>
-                            </div>
-
-                            <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-red-50 hover:text-red-600 hover:border-red-200" onClick={() => handleCopy(selectedIssue.shareText.instagram, "인스타그램")}>
-                                <Instagram className="h-6 w-6" />
-                                <span className="text-sm">인스타그램<br /><span className="text-xs text-muted-foreground font-normal">피드용 텍스트 복사</span></span>
-                            </Button>
-                            <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200" onClick={() => {
-                                const text = selectedIssue.shareText.twitter;
-                                const url = window.location.href;
-                                const appUrl = `twitter://post?message=${encodeURIComponent(text)}`;
-                                const webUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-
-                                // Try App first, then Web
-                                const start = new Date().getTime();
-                                window.location.href = appUrl;
-                                setTimeout(() => {
-                                    if (new Date().getTime() - start < 2000) {
-                                        window.open(webUrl, '_blank');
+                                    } else {
+                                        toast.error("이 기기에서는 시스템 공유를 지원하지 않습니다.");
                                     }
-                                }, 500);
-                            }}>
-                                <Twitter className="h-6 w-6" />
-                                <span className="text-sm">트위터 (X)<br /><span className="text-xs text-muted-foreground font-normal">앱으로 열기</span></span>
+                                }}
+                            >
+                                <Share2 className="w-5 h-5" />
+                                더 많은 앱으로 공유하기
                             </Button>
-                            <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200" onClick={() => {
-                                const url = window.location.href;
-                                // Facebook Deep Link (Experimental)
-                                const appUrl = `fb://facewebmodal/f?href=${encodeURIComponent(url)}`;
-                                const webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 
-                                // Try App first, then Web
-                                const start = new Date().getTime();
-                                window.location.href = appUrl;
-                                setTimeout(() => {
-                                    if (new Date().getTime() - start < 2000) {
-                                        window.open(webUrl, '_blank');
-                                    }
-                                }, 500);
-                            }}>
-                                <Facebook className="h-6 w-6" />
-                                <span className="text-sm">페이스북<br /><span className="text-xs text-muted-foreground font-normal">앱으로 공유하기</span></span>
+                            {/* 4. Copy Link (White) */}
+                            <Button
+                                variant="outline"
+                                className="w-full h-12 font-bold gap-2 text-base"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(window.location.href);
+                                    toast.success("링크가 복사되었습니다.");
+                                }}
+                            >
+                                <LinkIcon className="h-5 w-5" />
+                                링크 복사하기
                             </Button>
-                            <Button variant="outline" className="h-auto flex-col gap-2 p-4" onClick={() => {
-                                navigator.clipboard.writeText(window.location.href);
-                                toast.success("링크가 복사되었습니다.");
-                            }}>
-                                <LinkIcon className="h-6 w-6" />
-                                <span className="text-sm">링크 복사<br /><span className="text-xs text-muted-foreground font-normal">URL 복사하기</span></span>
-                            </Button>
-                            <div className="col-span-2 mt-2">
-                                <Button className="w-full bg-zinc-800 text-white" onClick={() => toast.info("이미지 다운로드는 준비 중입니다.")}>
-                                    <Download className="mr-2 h-4 w-4" /> 카드뉴스 이미지 다운로드 (준비중)
-                                </Button>
-                            </div>
                         </div>
                     )}
                 </DialogContent>
