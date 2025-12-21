@@ -38,7 +38,16 @@ export const metadata: Metadata = {
     canonical: "https://coupang-out.com",
   },
   verification: {
-    google: "GqAlJIRDMjMJHQ7TiqOMf-EtnTlxrHGedhfpISb_r4c",
+    google: [
+      "GqAlJIRDMjMJHQ7TiqOMf-EtnTlxrHGedhfpISb_r4c",
+      "9WLcXQPJV0TPGBIwp_J38WY5iTluu3MBvAzUgUJRR0c",
+    ],
+    other: {
+      "naver-site-verification": [
+        "f4b9f8baf25ed6a86f5f39c9f8469352061f4ac7",
+        "f4841842cf3a544394c30b04b366fc9e623d8d79",
+      ],
+    },
   },
   openGraph: {
     type: "website",

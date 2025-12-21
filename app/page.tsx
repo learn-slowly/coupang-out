@@ -109,6 +109,23 @@ export default function Home() {
           <RecentActivities />
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "쿠팡아웃 (Coupang Out)",
+            "url": "https://coupang-out.com",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://coupang-out.com/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })
+        }}
+      />
     </div>
   );
 }

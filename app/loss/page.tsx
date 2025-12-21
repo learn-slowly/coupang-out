@@ -24,6 +24,27 @@ export default function LossPage() {
             </div>
 
             <Outro />
+
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "ItemPage",
+                        "name": "쿠팡이 우리에게서 가져간 것들",
+                        "description": "편리함의 이면, 클릭의 비용. 우리가 잃어버린 가치들을 되돌아보는 인터랙티브 다큐멘터리.",
+                        "mainEntity": {
+                            "@type": "ItemList",
+                            "itemListElement": stories.map((story, index) => ({
+                                "@type": "ListItem",
+                                "position": index + 1,
+                                "name": story.title,
+                                "description": story.content.substring(0, 100) + "..."
+                            }))
+                        }
+                    })
+                }}
+            />
         </main>
     )
 }

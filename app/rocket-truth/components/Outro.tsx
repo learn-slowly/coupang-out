@@ -52,23 +52,23 @@ export default function Outro() {
 
         <div className="grid gap-4 md:grid-cols-2 pt-8">
           <Link href="/mission">
-            <motion.button
+            <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full py-4 bg-white text-black font-bold text-lg rounded-lg shadow-lg hover:bg-zinc-200 transition-colors"
+              className="w-full py-4 bg-white text-black font-bold text-lg rounded-lg shadow-lg hover:bg-zinc-200 transition-colors flex justify-center items-center cursor-pointer"
             >
               반품(탈퇴)하고 연대하기
-            </motion.button>
+            </motion.div>
           </Link>
 
           <Link href="/why">
-            <motion.button
+            <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full py-4 bg-zinc-900 border border-zinc-700 text-white font-medium text-lg rounded-lg hover:bg-zinc-800 hover:text-white hover:border-zinc-500 transition-colors"
+              className="w-full py-4 bg-zinc-900 border border-zinc-700 text-white font-medium text-lg rounded-lg hover:bg-zinc-800 hover:text-white hover:border-zinc-500 transition-colors flex justify-center items-center cursor-pointer"
             >
               더 알아보기
-            </motion.button>
+            </motion.div>
           </Link>
         </div>
       </div>
