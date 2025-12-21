@@ -15,6 +15,11 @@ export function SiteHeader() {
 
   const routes = [
     {
+      href: "/rocket-truth",
+      label: "로켓의 진실",
+      active: pathname === "/rocket-truth",
+    },
+    {
       href: "/mission",
       label: "미션: 쿠팡아웃",
       active: pathname === "/mission",

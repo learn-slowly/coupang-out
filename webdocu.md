@@ -30,6 +30,7 @@
 [9] 쿠팡 고객 계정 약 3370만개 개인정보 외부로 무단 노출 https://www.joongang.co.kr/article/25386202
 [10] 쿠팡/논란 및 사건 사고 https://namu.wiki/w/%EC%BF%A0%ED%8C%A1/%EB%85%BC%EB%9E%80%20%EB%B0%8F%20%EC%82%AC%EA%B1%B4%20%EC%82%AC%EA%B3%A0
 [11] 물량에 죽고 사는 노동자 “그만둬도 갈 곳 없어요” https://www.khan.co.kr/article/202512170600131
+[12] 쿠팡 김범석 '등기이사 사임', 중대재해법 처벌 피하려 꼼수? https://www.hankookilbo.com/News/Read/A2021062115310005585
 
 
 
@@ -120,3 +121,163 @@ export const stories = [
 - 지금 바로 `page.tsx`와 필요한 컴포넌트들을 생성해줘.
 - story-2 (블랙리스트) 섹션 배경을 수정해줘. 엑셀 그리드(Grid) 같은 선들이 배경에 깔려있고, 스크롤을 내리면 그 선들이 불규칙하게 깨지거나(Glitch effect), 붉은색 'REDACTED' 텍스트가 무작위 위치에 깜빡거리며 나타나게 해줘."
 - story-4 (개인정보 유출) 섹션에서는 화면 중앙의 작은 점들이 스크롤을 내릴수록 폭발하듯이 퍼져나가서 화면 전체를 뒤덮는 파티클(Particle) 애니메이션을 추가해줘. 3,370만 명이라는 숫자의 압도감을 주고 싶어."
+
+
+
+
+# 📽️ 인터랙티브 웹 다큐멘터리: <검은 상자의 진실> (최종 통합본)
+
+### [도입부] 당신의 문 앞, 새벽 5시
+
+**개요:** 사용자가 웹 페이지에 접속하자마자 마주하는 첫 화면입니다.
+
+* **장면 묘사:** 어둡고 고요한 새벽, 현관문 앞에 쿠팡 로켓배송 상자가 덩그러니 놓여 있다. 가로등 불빛이 희미하게 상자를 비춘다.
+* **🖼️ AI 이미지 생성 프롬프트:**
+> A lone cardboard delivery box with a rocket logo sits on a dark doorstep at dawn. The scene is moody, dimly lit by a distant streetlamp. Cinematic, grainy photo style, melancholic atmosphere. no humans.
+
+
+* **📝 화면 텍스트 (내레이션):**
+> (검은 화면에 흰 글씨가 천천히 떠오른다)
+> "당신이 잠든 사이에 도착했습니다."
+> "이 편리함은 마법이 아닙니다."
+> "누군가의 밤, 누군가의 땀, 그리고 누군가의 눈물로 만들어진..."
+> (상자를 클릭하면 다음 화면으로 넘어갑니다 - `Click to Open`)
+
+
+
+---
+
+### [제1장] 멈추지 않는 기계 (노동의 그늘)
+
+**개요:** 스크롤을 내리면 시작됩니다. 끝없이 돌아가는 물류센터의 압도적인 모습을 보여줍니다.
+
+* **장면 묘사:** 거대한 물류센터 내부. 셀 수 없이 많은 컨베이어 벨트가 복잡하게 얽혀 돌아가고 있다. 사람들은 기계 부품처럼 작고 흐릿한 실루엣으로만 표현된다. 흑백 톤에 붉은색 경고등만 빛난다.
+* **🖼️ AI 이미지 생성 프롬프트:**
+> Interior of a massive, complex fulfillment center. Endless conveyor belts carrying boxes, intertwining like a mechanical jungle. Human workers are depicted as small, blurred silhouettes, dwarfed by the machinery. Black and white aesthetic with glowing red warning lights. Industrial dystopia style.
+
+
+* **📝 화면 텍스트 및 데이터:**
+> **[텍스트]**
+> "이곳에 '사람'은 없습니다. '속도'만 있을 뿐입니다."
+> "UPH (시간당 생산량). 이 숫자가 떨어지면, 당신은 시스템에서 '오류'로 분류됩니다."
+> **[데이터 시각화]**
+> * **블랙리스트:** 화장실 이용, 노조 가입, 산재 신청 = **영구적 재취업 불가**
+> * **죽음의 타임라인:** 2020 칠곡(과로) → 2021 동탄(한파) → ... → 2024 남양주/제주 (계속되는 과로와 폭염)
+> 
+> 
+
+
+---
+
+### [제2장] 책임은 증발한다 (화재와 윤리)
+
+**개요:** 화면이 붉게 변하며 덕평 물류센터 화재 사건을 상징적으로 다룹니다.
+
+* **장면 묘사:** 멀리서 바라본 거대한 물류 창고 건물이 불길에 휩싸여 검은 연기를 내뿜고 있다. 소방차의 불빛이 보이지만 역부족이다.
+* **🖼️ AI 이미지 생성 프롬프트:**
+> A wide shot of a massive warehouse building engulfed in flames and thick black smoke at night. Emergency vehicle lights flash distantly. The scene is tragic and overwhelming. Dramatic news photography style.
+
+
+* **📝 화면 텍스트:**
+> **[텍스트]**
+> "2021년 6월, 축구장 15개 크기의 창고가 불탔습니다. 소방관(김동식 구조대장)이 순직했습니다."
+> "화재 당시 스프링클러는 꺼져 있었습니다."
+> **[강조 텍스트]**
+> "불이 꺼지기도 전에, 최고 책임자(김범석 의장)는 한국 법인 등기이사직을 사임했습니다." [12]
+> (책임 회피를 상징하는 도장이 서류에 '쾅' 찍히는 그래픽 효과)
+
+
+
+---
+
+### [제3장] 언제나 쿠팡이 이긴다 (기울어진 시장)
+
+**컨셉: 승자독식 (Winner Takes All)**
+
+*   **장면 묘사:** 스포트라이트를 받는 화려한 PB 상품(가짜)과, 그 그림자 속에서 빛을 잃어가는 오리지널 상품(진짜). 'Winner'라는 금빛 텍스트가 가짜 상품 위에 떠 있다.
+*   **🖼️ AI 이미지 생성 프롬프트:**
+> Spotlight shining on a fake product that looks identical to a high-quality original product. The original product is in the dark shadows, looking neglected and dusty. The fake product is bright and shiny. Conceptual photography, harsh lighting, high contrast, symbol of plagiarism and unfair competition.
+
+*   **📝 화면 텍스트:**
+> **[텍스트]**
+> "빛은 주인의 물건(PB상품)만 비춥니다."
+> "당신의 노력은 그림자가 되어 사라집니다."
+> **[시스템 고발] 승자독식의 늪**
+> "단돈 10원 차이로, 당신의 가게 간판이 바뀝니다."
+> "리뷰도, 사진도, 고객도... '위너'가 모두 가져갑니다. 이것은 경쟁이 아니라 약탈입니다." [관련기사](https://www.khan.co.kr/article/202505012047005)
+
+
+
+
+---
+
+### [제4장] 뚫린 성벽과 보이지 않는 족쇄 (소비자 피해) **(★신규 추가)**
+
+**개요:** 대규모 개인정보 유출 사태와 멤버십 해지를 방해하는 다크 패턴을 다룹니다.
+
+* **장면 묘사:** 스마트폰 화면에서 수많은 사람들의 얼굴 사진과 개인정보(0과 1의 코드)가 모래처럼 부서져 아래로 쏟아져 내린다. 화면 구석에는 '해지' 버튼이 미로처럼 복잡하게 꼬여 있다.
+* **🖼️ AI 이미지 생성 프롬프트:**
+> A cracked smartphone screen floating in a void. From the screen, binary code and user profile pictures are leaking out like sand falling into darkness. On the screen, a "Cancel Membership" button is designed like a confusing maze. Glitch art style, red and black color scheme.
+
+
+* **📝 화면 텍스트:**
+> **[텍스트]**
+> "3,370만 명. 대한민국 인구의 65%에 달하는 개인정보가 유출되었습니다." [관련기사](https://news.kbs.co.kr/news/pc/view/view.do?ncd=8420654)
+
+> "범인은 내부에 있었지만, 책임지는 사람은 없었습니다."
+> **[소비자 기만] 다크 패턴과 인질극**
+> "월회비 기습 인상(4,990원 → 7,890원). 해지 버튼을 찾으셨나요?"
+> "그들은 당신이 길을 잃도록 '다크 패턴'을 설계했습니다. 당신의 결제는 인질이 되었습니다."
+
+
+
+---
+
+### [결말 및 행동 촉구] 당신의 선택은?
+
+**개요:** 다시 도입부의 상자 앞으로 돌아오지만, 상자의 모습이 처참하게 바뀌어 있습니다.
+
+* **장면 묘사:** 도입부와 같은 현관 앞 상자. 하지만 이제 상자 겉면에는 **'노동 착취', '책임 회피', '정보 유출'**이라고 적힌 붉은색 경고 테이프(Police Line)가 덕지덕지 붙어 있다.
+* **🖼️ AI 이미지 생성 프롬프트:**
+> The same delivery box from the beginning scene, but now covered in red hazard tapes with text "Exploitation", "Data Leak", "Monopoly". The atmosphere is heavy and ominous. Close-up shot.
+
+
+* **📝 화면 텍스트 (최종 메시지):**
+> "이 상자 안에 담긴 진짜 청구서를 확인하셨습니다."
+> "이제 당신에게는 두 가지 선택지가 있습니다."
+
+
+* **🔴 인터랙티브 버튼 (Call to Action):**
+* **[버튼 1: 반품(탈퇴)하고 연대하기]** → (클릭 시 선생님이 만드실 **'쿠팡 탈퇴 운동 사이트'**로 이동)
+* **[버튼 2: 더 알아보기]** → (클릭 시 **'왜 쿠팡아웃인가'** 페이지로 이동하여 상세 이슈 확인)
+
+---
+
+# 부록: 쿠팡 노동자 사망 사고 일지 (2020~2025)
+> *확인된 주요 사망 사고 목록입니다. (출처: 언론 보도 및 노조 발표)*
+
+## 사망사건 표
+
+| 순번 | 사망 일자       | 근무지                  | 주요 내용 및 출처                                                                 |
+|------|-----------------|------------------------|-----------------------------------------------------------------------------------|
+| 1    | 2020.3.12     | 안산1캠프 (경기 안산)  | 새벽배송 중 빌라 계단에서 사망, 1년 계약 비정규직 과로 의심 [http://www.ansansm.co.kr/news/articleView.html?idxno=39865] |
+| 2    | 2020.5.27     | 인천 물류센터 (인천 서구) | 오후조 계약직 근로자, 화장실에서 쓰러져 사망 [https://www.yna.co.kr/view/AKR20200528161500065]            |
+| 3    | 2020.6.1      | 천안 물류센터         | 조리실 근무 중 쓰러짐 [https://www.epnnews.com/news/articleView.html?idxno=5012] |
+| 4    | 2020.10.13    | 칠곡 물류센터 (경북 칠곡) | 새벽 근무 후 퇴근 1.5시간 만 심근경색 사망, 과로사 산재 인정 [https://www.yna.co.kr/view/AKR20230328125051004] |
+| 5    | 2021.1.11     | 동탄물류센터 (경기 화성) | 야간 집품 후 화장실 쓰러짐(50대 여성, 최경애), 추위·열악환경 지적 [https://www.hani.co.kr/arti/society/society_general/979504.html] |
+| 6    | 2021.3.6      | 구로 배송캠프 (서울 구로) | 캠프리더, 새벽 근무 후 사망(40대 A씨) [https://www.khan.co.kr/article/202103081624001] |
+| 7    | 2021.3.6      | 송파1캠프 (서울 송파) | 심야 배송 후 고시원 사망(48세, 이모), 과로사(뇌출혈) 대책위 기자회견 [https://www.seoul.co.kr/news/world/event/2021/03/09/20210309009025] |
+| 8    | 2021.6        | 덕평 물류센터 (화성 덕평) | 물류센터 화재 (김동식 구조대장) 순직 [https://www.hankookilbo.com/News/Read/A2021062110410002602] |
+| 9    | 2021.8        | 안성                 | 배송기사 (50대) 뇌졸중/심근경색 [https://www.labortoday.co.kr/news/articleView.html?idxno=231137] |
+| 10   | 2022.2        | 동탄                 | 물류센터 (50대, 여) 뇌출혈 [https://news.jtbc.co.kr/article/NB12048152] |
+| 11   | 2023.1        | 인천                 | 물류센터 (60대) 심정지 [https://www.hankookilbo.com/News/Read/A2023010810240005864] |
+| 12   | 2023.10       | 군포                 | 퀵플렉스 (60대) 새벽배송 중 사망 [https://www.hani.co.kr/arti/society/labor/1111988.html] |
+| 13   | 2024.5        | 남양주2캠프 (경기 남양주) | 택배 배송 (정슬기, 41세) 주63시간 과로사(심실세동·심근경색) [https://www.hani.co.kr/arti/society/labor/1146779.html] |
+| 14   | 2024.7        | 제주 택배 분류       | 이동 중 사망 [https://hnews.kr/news/view.php?no=64492]                                                            |
+| 15   | 2024.8        | 시흥                 | 캠프 (김명규, 49세) 과로사 [https://www.khan.co.kr/article/202412031302001/?utm_source=urlCopy&utm_medium=social&utm_campaign=sharing] |
+| 16   | 2025.3.13     | 안성 물류센터 (경기 안성) | 야간 일용직(50대), 작업 중 쓰러짐 [https://news.imbc.com/news/2025/society/article/6696039_36718.html] |
+| 17   | 2025.8        | 용인                 | 물류센터 (50대) 냉동창고 작업 중 사망 [https://www.newscham.net/articles/113881] |
+| 18   | 2025.10.15    | 일산2캠프 (경기 일산) | 새벽배송 후 뇌졸중 사망 [https://www.hani.co.kr/arti/society/labor/1232151.html] |
+| 19   | 2025.11.10    | 제주1캠프 (제주)      | 새벽배송 중 트럭 사고 사망 (오승용), 주6일 11.5시간 근무 [https://h21.hani.co.kr/arti/society/society_general/58349.html]        |
+| 20   | 2025.11.21    | 동탄1센터 (경기 화성) | 야간 계약직, 식당에서 쓰러짐 [https://www.donga.com/news/Society/article/all/20251123/132822606/1]                     |
+| 21   | 2025.11.26    | 경기광주5센터 (경기 광주) | 새벽 피킹 업무 중 쓰러짐 (50대) [https://www.yna.co.kr/view/AKR20251126032300061] |
