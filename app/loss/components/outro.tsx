@@ -140,18 +140,28 @@ export default function Outro() {
                                 <Button
                                     className="w-full h-12 bg-zinc-100 dark:bg-zinc-800 text-foreground hover:bg-zinc-200 dark:hover:bg-zinc-700 font-bold gap-2 text-base"
                                     onClick={async () => {
-                                        if (navigator.share) {
-                                            try {
+                                        try {
+                                            if (navigator.share) {
                                                 await navigator.share({
                                                     title: "쿠팡이 우리에게서 가져간 것들",
                                                     text: "우리가 잃어버린 가치들을 되돌아보는 인터랙티브 다큐멘터리",
                                                     url: window.location.href,
                                                 });
-                                            } catch (err) {
-                                                console.log("Share canceled", err);
+                                            } else {
+                                                throw new Error("API not supported");
                                             }
-                                        } else {
-                                            alert("이 기기에서는 시스템 공유를 지원하지 않습니다.");
+                                        } catch (err) {
+                                            // Fallback to copy link
+                                            if ((err as Error).name !== 'AbortError') {
+                                                navigator.clipboard.writeText(window.location.href);
+                                                try {
+                                                    toast.success("링크가 복사되었습니다.", {
+                                                        description: "기기에서 시스템 공유를 지원하지 않아 링크를 복사했습니다."
+                                                    });
+                                                } catch {
+                                                    alert("링크가 복사되었습니다.");
+                                                }
+                                            }
                                         }
                                     }}
                                 >
