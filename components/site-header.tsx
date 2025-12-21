@@ -46,7 +46,7 @@ export function SiteHeader() {
       <div className="container flex h-16 items-center px-4 mx-auto">
         <div className="mr-8 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="text-xl font-bold tracking-tighter text-red-600">
+            <span className="text-3xl font-black tracking-tighter text-red-600">
               쿠팡아웃
             </span>
           </Link>
@@ -85,7 +85,7 @@ export function SiteHeader() {
                   className="flex items-center"
                   onClick={() => setIsOpen(false)}
                 >
-                  <span className="font-bold text-lg text-red-600">쿠팡아웃</span>
+                  <span className="font-black text-2xl text-red-600">쿠팡아웃</span>
                 </Link>
               </div>
               <div className="flex flex-col gap-4 mt-8 px-7">
@@ -113,7 +113,7 @@ export function SiteHeader() {
               </a>
             </Button>
             <div className="md:hidden flex items-center">
-              <Link href="/" className="font-bold mr-4 text-red-600">쿠팡아웃</Link>
+              <Link href="/" className="font-black text-2xl mr-4 text-red-600">쿠팡아웃</Link>
             </div>
             <ModeToggle />
           </div>
