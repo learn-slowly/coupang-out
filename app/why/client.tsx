@@ -138,6 +138,30 @@ export default function WhyClient() {
                                 </Button>
                             </div>
 
+                            <div className="col-span-2">
+                                <Button
+                                    className="w-full bg-zinc-100 dark:bg-zinc-800 text-foreground hover:bg-zinc-200 dark:hover:bg-zinc-700 font-bold gap-2"
+                                    onClick={async () => {
+                                        if (navigator.share) {
+                                            try {
+                                                await navigator.share({
+                                                    title: selectedIssue.title,
+                                                    text: selectedIssue.subtitle,
+                                                    url: window.location.href,
+                                                });
+                                            } catch (err) {
+                                                console.log("Share canceled", err);
+                                            }
+                                        } else {
+                                            toast.error("이 기기에서는 시스템 공유를 지원하지 않습니다.");
+                                        }
+                                    }}
+                                >
+                                    <Share2 className="w-5 h-5" />
+                                    더 많은 앱으로 공유하기 (페이스북/문자 등)
+                                </Button>
+                            </div>
+
                             <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-red-50 hover:text-red-600 hover:border-red-200" onClick={() => handleCopy(selectedIssue.shareText.instagram, "인스타그램")}>
                                 <Instagram className="h-6 w-6" />
                                 <span className="text-sm">인스타그램<br /><span className="text-xs text-muted-foreground font-normal">피드용 텍스트 복사</span></span>
