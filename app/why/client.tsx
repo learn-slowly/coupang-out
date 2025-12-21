@@ -143,17 +143,40 @@ export default function WhyClient() {
                                 <span className="text-sm">인스타그램<br /><span className="text-xs text-muted-foreground font-normal">피드용 텍스트 복사</span></span>
                             </Button>
                             <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200" onClick={() => {
-                                handleCopy(selectedIssue.shareText.twitter, "트위터");
-                                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(selectedIssue.shareText.twitter)}`, '_blank');
+                                const text = selectedIssue.shareText.twitter;
+                                const url = window.location.href;
+                                const appUrl = `twitter://post?message=${encodeURIComponent(text)}`;
+                                const webUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+
+                                // Try App first, then Web
+                                const start = new Date().getTime();
+                                window.location.href = appUrl;
+                                setTimeout(() => {
+                                    if (new Date().getTime() - start < 2000) {
+                                        window.open(webUrl, '_blank');
+                                    }
+                                }, 500);
                             }}>
                                 <Twitter className="h-6 w-6" />
-                                <span className="text-sm">트위터 (X)<br /><span className="text-xs text-muted-foreground font-normal">자동완성 열기</span></span>
+                                <span className="text-sm">트위터 (X)<br /><span className="text-xs text-muted-foreground font-normal">앱으로 열기</span></span>
                             </Button>
                             <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200" onClick={() => {
-                                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+                                const url = window.location.href;
+                                // Facebook Deep Link (Experimental)
+                                const appUrl = `fb://facewebmodal/f?href=${encodeURIComponent(url)}`;
+                                const webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+
+                                // Try App first, then Web
+                                const start = new Date().getTime();
+                                window.location.href = appUrl;
+                                setTimeout(() => {
+                                    if (new Date().getTime() - start < 2000) {
+                                        window.open(webUrl, '_blank');
+                                    }
+                                }, 500);
                             }}>
                                 <Facebook className="h-6 w-6" />
-                                <span className="text-sm">페이스북<br /><span className="text-xs text-muted-foreground font-normal">공유하기 열기</span></span>
+                                <span className="text-sm">페이스북<br /><span className="text-xs text-muted-foreground font-normal">앱으로 공유하기</span></span>
                             </Button>
                             <Button variant="outline" className="h-auto flex-col gap-2 p-4" onClick={() => {
                                 navigator.clipboard.writeText(window.location.href);
