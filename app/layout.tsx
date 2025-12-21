@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://coupang-out.com",
   },
+  verification: {
+    google: "GqAlJIRDMjMJHQ7TiqOMf-EtnTlxrHGedhfpISb_r4c",
+  },
   openGraph: {
     type: "website",
     locale: "ko_KR",
