@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: '*',
             allow: '/',
-            disallow: '/api/',
+            disallow: '/private/',
         },
         sitemap: 'https://coupang-out.com/sitemap.xml',
     }

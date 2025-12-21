@@ -1,30 +1,38 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+    const baseUrl = 'https://coupang-out.com'
+
     return [
         {
-            url: 'https://coupang-out.com',
+            url: baseUrl,
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 1,
         },
         {
-            url: 'https://coupang-out.com/mission',
+            url: `${baseUrl}/rocket-truth`,
             lastModified: new Date(),
-            changeFrequency: 'always',
+            changeFrequency: 'weekly',
             priority: 0.9,
         },
         {
-            url: 'https://coupang-out.com/why',
+            url: `${baseUrl}/why`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.8,
         },
         {
-            url: 'https://coupang-out.com/about',
+            url: `${baseUrl}/loss`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
-            priority: 0.5,
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/mission`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
         },
     ]
 }
