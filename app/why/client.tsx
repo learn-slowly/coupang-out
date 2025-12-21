@@ -59,11 +59,15 @@ export default function WhyClient() {
 
             <Script
                 src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-                integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2txfPADzhKO1gLnS97FNEl"
-                crossOrigin="anonymous"
+                strategy="afterInteractive"
                 onLoad={() => {
+                    // SDK Load Success
                     if (window.Kakao && !window.Kakao.isInitialized()) {
-                        window.Kakao.init('22045de684de335a6e0ac79accb0b638');
+                        try {
+                            window.Kakao.init('22045de684de335a6e0ac79accb0b638');
+                        } catch (e) {
+                            console.error("Kakao Init Error:", e);
+                        }
                     }
                 }}
             />
@@ -105,13 +109,25 @@ export default function WhyClient() {
                                 <Button
                                     className="w-full bg-[#FAE100] hover:bg-[#FADB00] text-[#371D1E] font-bold gap-2"
                                     onClick={() => {
-                                        if (window.Kakao) {
-                                            if (!window.Kakao.isInitialized()) {
-                                                window.Kakao.init('22045de684de335a6e0ac79accb0b638');
-                                            }
+                                        // 1. Check if SDK is loaded
+                                        if (!window.Kakao) {
+                                            alert("카카오톡 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+                                            return;
+                                        }
+
+                                        // 2. Initialize if needed
+                                        if (!window.Kakao.isInitialized()) {
+                                            window.Kakao.init('22045de684de335a6e0ac79accb0b638');
+                                        }
+
+                                        // 3. Send Share
+                                        try {
                                             window.Kakao.Share.sendScrap({
                                                 requestUrl: window.location.href,
                                             });
+                                        } catch (err) {
+                                            console.error("Share Error:", err);
+                                            alert("공유하기 도중 오류가 발생했습니다.");
                                         }
                                     }}
                                 >
