@@ -21,6 +21,13 @@ import {
 } from "@/components/ui/dialog"
 import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
+import Script from "next/script"
+
+declare global {
+    interface Window {
+        Kakao: any;
+    }
+}
 
 
 export default function WhyClient() {
@@ -49,6 +56,17 @@ export default function WhyClient() {
                     쿠팡의 구조적 문제, 하나씩 알아보세요.
                 </p>
             </div>
+
+            <Script
+                src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+                integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2txfPADzhKO1gLnS97FNEl"
+                crossOrigin="anonymous"
+                onLoad={() => {
+                    if (window.Kakao && !window.Kakao.isInitialized()) {
+                        window.Kakao.init('22045de684de335a6e0ac79accb0b638');
+                    }
+                }}
+            />
 
             <Tabs defaultValue="labor" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 h-auto p-1 bg-muted/50">
@@ -83,6 +101,27 @@ export default function WhyClient() {
 
                     {selectedIssue && (
                         <div className="grid grid-cols-2 gap-4 py-4">
+                            <div className="col-span-2">
+                                <Button
+                                    className="w-full bg-[#FAE100] hover:bg-[#FADB00] text-[#371D1E] font-bold gap-2"
+                                    onClick={() => {
+                                        if (window.Kakao) {
+                                            if (!window.Kakao.isInitialized()) {
+                                                window.Kakao.init('22045de684de335a6e0ac79accb0b638');
+                                            }
+                                            window.Kakao.Share.sendScrap({
+                                                requestUrl: window.location.href,
+                                            });
+                                        }
+                                    }}
+                                >
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                        <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.557 1.707 4.8 4.27 6.054-.188.702-.682 2.545-.78 2.94-.123.49.178.483.376.351.274-.18 4.217-2.857 4.908-3.325.395.056.8.087 1.226.087 4.97 0 9-3.186 9-7.116C21 6.185 16.97 3 12 3z" />
+                                    </svg>
+                                    카카오톡 공유하기
+                                </Button>
+                            </div>
+
                             <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-red-50 hover:text-red-600 hover:border-red-200" onClick={() => handleCopy(selectedIssue.shareText.instagram, "인스타그램")}>
                                 <Instagram className="h-6 w-6" />
                                 <span className="text-sm">인스타그램<br /><span className="text-xs text-muted-foreground font-normal">피드용 텍스트 복사</span></span>
@@ -94,9 +133,11 @@ export default function WhyClient() {
                                 <Twitter className="h-6 w-6" />
                                 <span className="text-sm">트위터 (X)<br /><span className="text-xs text-muted-foreground font-normal">자동완성 열기</span></span>
                             </Button>
-                            <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200" onClick={() => handleCopy(selectedIssue.shareText.facebook, "페이스북")}>
+                            <Button variant="outline" className="h-auto flex-col gap-2 p-4 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200" onClick={() => {
+                                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+                            }}>
                                 <Facebook className="h-6 w-6" />
-                                <span className="text-sm">페이스북<br /><span className="text-xs text-muted-foreground font-normal">텍스트 복사</span></span>
+                                <span className="text-sm">페이스북<br /><span className="text-xs text-muted-foreground font-normal">공유하기 열기</span></span>
                             </Button>
                             <Button variant="outline" className="h-auto flex-col gap-2 p-4" onClick={() => {
                                 navigator.clipboard.writeText(window.location.href);
