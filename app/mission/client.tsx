@@ -151,7 +151,7 @@ function MissionClientContent() {
             {/* Header */}
             <div className="text-center space-y-4">
                 <Badge variant="outline" className="mb-2 text-red-600 border-red-200 bg-red-50">Mission 01</Badge>
-                <h1 className="text-4xl font-bold tracking-tight">쿠팡 탈퇴 & 메시지 남기기</h1>
+                <h1 className="text-4xl font-bold tracking-tight">쿠팡 탈퇴</h1>
                 <p className="text-xl text-muted-foreground">
                     쿠팡 탈퇴로 우리의 의지를 보여주고, <br className="md:hidden" />
                     메시지로 서로를 응원해주세요.
@@ -180,7 +180,7 @@ function MissionClientContent() {
                             <h2 className="text-2xl font-bold">쿠팡 탈퇴 방법</h2>
                         </div>
 
-                        <div className="rounded-xl overflow-hidden shadow-md bg-black aspect-video mb-6 relative group">
+                        <div className="rounded-xl overflow-hidden shadow-md bg-black max-w-[280px] mx-auto aspect-[9/16] mb-6 relative group ring-4 ring-zinc-900/5 dark:ring-zinc-100/10">
                             <video
                                 src="/coupang-withdrawal-guide.mp4"
                                 controls
@@ -305,23 +305,38 @@ function MissionClientContent() {
                             {messages.length === 0 ? (
                                 <p className="text-center text-muted-foreground py-10">아직 등록된 메시지가 없습니다.<br />첫 번째 목소리가 되어주세요!</p>
                             ) : (
-                                messages.map((msg) => (
-                                    <div key={msg.id} className="flex gap-4 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900 border animate-in fade-in slide-in-from-bottom-2">
-                                        <Avatar className="w-10 h-10 border">
-                                            <AvatarFallback className="bg-red-100 text-red-600 font-bold">
-                                                {msg.message.substring(0, 1)}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                        <div className="flex-1 space-y-1">
-                                            <p className="text-sm font-medium leading-relaxed break-all">
-                                                {msg.message}
-                                            </p>
-                                            <p className="text-xs text-muted-foreground font-light text-right">
-                                                {new Date(msg.created_at).toLocaleDateString()} {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                            </p>
+                                messages.map((msg, index) => {
+                                    // Random gradients based on index to be consistent during hydration
+                                    const gradients = [
+                                        "bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30 border-red-100 dark:border-red-900/50",
+                                        "bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 border-orange-100 dark:border-orange-900/50",
+                                        "bg-gradient-to-br from-yellow-50 to-lime-50 dark:from-yellow-950/30 dark:to-lime-950/30 border-yellow-100 dark:border-yellow-900/50",
+                                        "bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border-green-100 dark:border-green-900/50",
+                                        "bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/30 dark:to-cyan-950/30 border-teal-100 dark:border-teal-900/50",
+                                        "bg-gradient-to-br from-sky-50 to-blue-50 dark:from-sky-950/30 dark:to-blue-950/30 border-sky-100 dark:border-blue-900/50",
+                                        "bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-950/30 dark:to-violet-950/30 border-indigo-100 dark:border-indigo-900/50",
+                                        "bg-gradient-to-br from-purple-50 to-fuchsia-50 dark:from-purple-950/30 dark:to-fuchsia-950/30 border-purple-100 dark:border-purple-900/50",
+                                    ];
+                                    const styleClass = gradients[index % gradients.length];
+
+                                    return (
+                                        <div key={msg.id} className={`flex gap-4 p-4 rounded-xl border animate-in fade-in slide-in-from-bottom-2 ${styleClass}`}>
+                                            <Avatar className="w-10 h-10 border bg-white/80 dark:bg-black/20 backdrop-blur-sm">
+                                                <AvatarFallback className="bg-transparent text-zinc-600 dark:text-zinc-300 font-bold">
+                                                    {msg.message.substring(0, 1)}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                            <div className="flex-1 space-y-1">
+                                                <p className="text-sm font-medium leading-relaxed break-all text-zinc-800 dark:text-zinc-200">
+                                                    {msg.message}
+                                                </p>
+                                                <p className="text-xs text-zinc-500 font-light text-right">
+                                                    {new Date(msg.created_at).toLocaleDateString()} {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))
+                                    )
+                                })
                             )}
                         </div>
                     </ScrollArea>

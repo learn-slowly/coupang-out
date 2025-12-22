@@ -10,33 +10,6 @@ declare global {
 }
 
 export function TwitterTimeline() {
-    const [isClient, setIsClient] = useState(false)
-
-    useEffect(() => {
-        setIsClient(true)
-
-        // Robust script injection
-        if (typeof window !== 'undefined') {
-            const scriptId = 'twitter-wjs';
-            const scriptSrc = "https://platform.twitter.com/widgets.js";
-
-            // If script doesn't exist, create it
-            if (!document.getElementById(scriptId)) {
-                const script = document.createElement('script');
-                script.id = scriptId;
-                script.src = scriptSrc;
-                script.async = true;
-                document.body.appendChild(script);
-            } else {
-                // If script exists, manually re-scan/load widgets
-                // This covers cases where script loaded but component wasn't ready
-                if (window.twttr && window.twttr.widgets) {
-                    window.twttr.widgets.load();
-                }
-            }
-        }
-    }, [])
-
     return (
         <div className="w-full bg-white dark:bg-zinc-800 rounded-xl overflow-hidden shadow-sm border h-[600px]">
             <div className="p-4 border-b">
@@ -45,19 +18,22 @@ export function TwitterTimeline() {
             </div>
 
             <div className="h-full overflow-y-auto custom-scrollbar">
-                {isClient && (
-                    <div className="px-4">
-                        <a
-                            className="twitter-timeline"
-                            data-lang="ko"
-                            data-height="530"
-                            data-theme="light"
-                            href="https://twitter.com/coupang_out?ref_src=twsrc%5Etfw"
-                        >
-                            Loading Tweets...
-                        </a>
-                    </div>
-                )}
+                <div className="px-4 py-4">
+                    <a
+                        className="twitter-timeline"
+                        href="https://twitter.com/coupang_out?ref_src=twsrc%5Etfw"
+                        data-lang="ko"
+                        data-height="500"
+                        data-theme="light"
+                    >
+                        Tweets by coupang_out
+                    </a>
+                    <Script
+                        src="https://platform.twitter.com/widgets.js"
+                        strategy="lazyOnload"
+                        charSet="utf-8"
+                    />
+                </div>
             </div>
         </div>
     )
