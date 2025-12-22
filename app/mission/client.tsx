@@ -151,10 +151,10 @@ function MissionClientContent() {
             {/* Header */}
             <div className="text-center space-y-4">
                 <Badge variant="outline" className="mb-2 text-red-600 border-red-200 bg-red-50">Mission 01</Badge>
-                <h1 className="text-4xl font-bold tracking-tight">쿠팡에게 한마디</h1>
+                <h1 className="text-4xl font-bold tracking-tight">쿠팡 탈퇴 & 메시지 남기기</h1>
                 <p className="text-xl text-muted-foreground">
-                    우리의 목소리가 모이면 변화를 만들 수 있습니다. <br className="md:hidden" />
-                    쿠팡에게 전하고 싶은 말을 남겨주세요.
+                    쿠팡 탈퇴로 우리의 의지를 보여주고, <br className="md:hidden" />
+                    메시지로 서로를 응원해주세요.
                 </p>
             </div>
 
@@ -168,63 +168,113 @@ function MissionClientContent() {
 
             <div className="grid md:grid-cols-2 gap-12 items-start">
 
-                {/* Form Section */}
-                <div className="space-y-6">
-                    <div className="flex items-center gap-2 mb-4">
-                        <Send className="w-5 h-5 text-red-600" />
-                        <h2 className="text-2xl font-bold">메시지 보내기</h2>
-                    </div>
-                    <Card className="border-2 border-red-100 dark:border-red-900/30 shadow-lg">
-                        <CardHeader>
-                            <CardTitle>작성하기</CardTitle>
-                            <CardDescription>이메일은 공개되지 않으며, 비방이나 욕설은 삭제될 수 있습니다.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="email"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>이메일 (비공개)</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="example@email.com" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                {/* Left Column: Withdrawal Guide & Form */}
+                <div className="space-y-12">
 
-                                    <FormField
-                                        control={form.control}
-                                        name="message"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>메시지 (공개)</FormLabel>
-                                                <FormControl>
-                                                    <Textarea
-                                                        placeholder="쿠팡에게 전하고 싶은 말을 자유롭게 적어주세요."
-                                                        className="resize-none h-32 text-base"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                    {/* Withdrawal Guide */}
+                    <section className="space-y-6">
+                        <div className="flex items-center gap-2 mb-4">
+                            <div className="p-2 bg-red-100 rounded-lg text-red-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" x2="9" y1="12" y2="12" /></svg>
+                            </div>
+                            <h2 className="text-2xl font-bold">쿠팡 탈퇴 방법</h2>
+                        </div>
 
-                                    <Button type="submit" size="lg" className="w-full bg-red-600 hover:bg-red-700 text-white font-bold" disabled={uploading}>
-                                        {uploading ? (
-                                            <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 전송 중...</>
-                                        ) : (
-                                            "메시지 등록하기"
-                                        )}
-                                    </Button>
-                                </form>
-                            </Form>
-                        </CardContent>
-                    </Card>
+                        <div className="space-y-4">
+                            <Card>
+                                <CardContent className="p-6 space-y-4">
+                                    <div className="flex gap-4">
+                                        <div className="flex-none flex items-center justify-center w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 font-bold text-sm">1</div>
+                                        <div>
+                                            <h3 className="font-bold mb-1">마이쿠팡 접속</h3>
+                                            <p className="text-sm text-muted-foreground">앱/웹 하단 '마이쿠팡' 메뉴를 선택하세요.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <div className="flex-none flex items-center justify-center w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 font-bold text-sm">2</div>
+                                        <div>
+                                            <h3 className="font-bold mb-1">내 정보 관리</h3>
+                                            <p className="text-sm text-muted-foreground">회원이름을 클릭하거나 '내 정보 관리' 메뉴로 이동하세요.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <div className="flex-none flex items-center justify-center w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 font-bold text-sm">3</div>
+                                        <div>
+                                            <h3 className="font-bold mb-1">회원탈퇴 선택</h3>
+                                            <p className="text-sm text-muted-foreground">화면 최하단의 '회원탈퇴' 버튼을 찾아주세요.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <div className="flex-none flex items-center justify-center w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 font-bold text-sm">4</div>
+                                        <div>
+                                            <h3 className="font-bold mb-1">비밀번호 확인 및 완료</h3>
+                                            <p className="text-sm text-muted-foreground">비밀번호를 입력하고 탈퇴 사유를 선택하면 완료됩니다.</p>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </section>
+
+                    {/* Message Form */}
+                    <section className="space-y-6">
+                        <div className="flex items-center gap-2 mb-4">
+                            <Send className="w-5 h-5 text-red-600" />
+                            <h2 className="text-2xl font-bold">인증샷 대신 한마디</h2>
+                        </div>
+                        <Card className="border-2 border-red-100 dark:border-red-900/30 shadow-lg">
+                            <CardHeader>
+                                <CardTitle>메시지 남기기</CardTitle>
+                                <CardDescription>탈퇴 완료 후, 쿠팡에게 전하고 싶은 말을 남겨주세요.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Form {...form}>
+                                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="email"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>이메일 (비공개)</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="example@email.com" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name="message"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>메시지 (공개)</FormLabel>
+                                                    <FormControl>
+                                                        <Textarea
+                                                            placeholder="탈퇴 이유는 무엇인가요? 쿠팡에게 바라는 점은 무엇인가요?"
+                                                            className="resize-none h-32 text-base"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <Button type="submit" size="lg" className="w-full bg-red-600 hover:bg-red-700 text-white font-bold" disabled={uploading}>
+                                            {uploading ? (
+                                                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 전송 중...</>
+                                            ) : (
+                                                "메시지 등록하기"
+                                            )}
+                                        </Button>
+                                    </form>
+                                </Form>
+                            </CardContent>
+                        </Card>
+                    </section>
+
                 </div>
 
                 {/* List Section */}

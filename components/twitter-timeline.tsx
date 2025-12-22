@@ -3,12 +3,22 @@
 import { useEffect, useState } from "react"
 import Script from "next/script"
 
+declare global {
+    interface Window {
+        twttr: any;
+    }
+}
+
 export function TwitterTimeline() {
-    // Only render on client to avoid hydration mismatch with Twitter's iframe
     const [isClient, setIsClient] = useState(false)
 
     useEffect(() => {
         setIsClient(true)
+
+        // Manual trigger for Twitter widget in case script is already loaded
+        if (typeof window !== 'undefined' && window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load();
+        }
     }, [])
 
     return (
@@ -25,14 +35,14 @@ export function TwitterTimeline() {
                             className="twitter-timeline"
                             data-lang="ko"
                             data-height="530"
-                            data-theme="light" // or auto/dark based on context, hard to sync with system theme perfectly without reload, simple is light or dark. Let's try auto if supported or just default.
+                            data-theme="light"
                             href="https://twitter.com/coupang_out?ref_src=twsrc%5Etfw"
                         >
                             Loading Tweets...
                         </a>
                         <Script
                             src="https://platform.twitter.com/widgets.js"
-                            strategy="lazyOnload"
+                            strategy="afterInteractive"
                             onLoad={() => {
                                 // console.log("Twitter widget loaded")
                             }}

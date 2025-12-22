@@ -89,8 +89,17 @@ export async function createMissionPost(params: CreateMessageParams) {
 
         return { success: true }
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Server Action Error:", error)
+
+        // Handle specific Supabase/Postgres errors
+        if (error?.code === '42P01') {
+            return { success: false, message: "시스템 오류: 테이블이 존재하지 않습니다. (관리자에게 문의하세요)" }
+        }
+        if (error?.code === '42501') {
+            return { success: false, message: "시스템 오류: 권한이 없습니다. (RLS 설정을 확인하세요)" }
+        }
+
         return { success: false, message: "서버 내부 오류가 발생했습니다." }
     }
 }
