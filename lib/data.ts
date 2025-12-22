@@ -66,16 +66,16 @@ export const issuesData: Issue[] = [
 
     // 2. Labor (Health & Night Work)
     {
-        id: 'labor-1',
-        category: 'labor',
-        title: '새벽배송과 건강 위협',
-        subtitle: '밤 11시 59분부터 시작되는 죽음의 레이스',
-        description: '0~7시 전면 새벽배송 시스템은 노동자의 생체 리듬을 파괴합니다. 높은 노동강도와 장시간 심야 노동은 과로사와 직결됩니다.',
+        id: "labor",
+        category: "labor",
+        title: "멈추지 않는 죽음의 행렬",
+        subtitle: "2020년 이후 28명의 노동자가 사망했습니다.",
+        description: "쿠팡의 물류센터와 배송 현장에서 노동자들이 쓰러지고 있습니다. 과로사, 온열질환, 안전사고... 이것은 단순한 사고가 아닙니다. 살인적인 노동 강도와 비인간적인 시스템이 만든 구조적 타살입니다.",
         facts: [
             '유일하게 0~7시 전국 단위 새벽배송 운영 (과도한 노동강도).',
             '밤 11시 59분 주문도 다음 날 새벽배송해야 하는 압박 구조.',
             '노조 요구: "0~5시 초심야 배송 제한" 및 건강권 보장.',
-            '2020년 이후 사망 노동자 25명 중 17명이 과로사 추정.'
+            '2020년 이후 사망 노동자 28명 중 17명이 과로사 추정.'
         ],
         laws: [
             '산업안전보건법 제5조 (사업주의 안전·보건조치 의무)',
@@ -88,8 +88,8 @@ export const issuesData: Issue[] = [
         ],
         shareImages: { instagram: '/og-image.png', instagramStory: '/og-image.png', twitter: '/og-image.png', facebook: '/og-image.png' },
         shareText: {
-            instagram: `새벽배송의 편리함 뒤에 숨겨진 진실.\n매일 밤 노동자들은 생명을 담보로 달립니다.\n2020년 이후 25명 사망.\n\n#쿠팡아웃 #과로사 #새벽배송`,
-            twitter: `쿠팡의 심야노동 실태\n- 0~7시 전면 새벽배송\n- 25명 사망 (17명 과로사 추정)\n\n편리함이 누군가의 고통이 되어서는 안 됩니다.\ncoupang-out.com/why`,
+            instagram: `새벽배송의 편리함 뒤에 숨겨진 진실.\n매일 밤 노동자들은 생명을 담보로 달립니다.\n2020년 이후 28명 사망.\n\n#쿠팡아웃 #과로사 #새벽배송`,
+            twitter: `쿠팡의 심야노동 실태\n- 0~7시 전면 새벽배송\n- 28명 사망 (17명 과로사 추정)\n\n편리함이 누군가의 고통이 되어서는 안 됩니다.\ncoupang-out.com/why`,
             facebook: `죽음의 새벽배송을 멈춰주세요.\n\n쿠팡의 혁신은 노동자의 피로 만들어집니다.\n심야노동 제한과 건강권 보장이 필요합니다.\ncoupang-out.com/why`,
             kakao: `쿠팡 새벽배송 노동자의 눈물 | 쿠팡아웃`
         },

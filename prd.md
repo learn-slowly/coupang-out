@@ -83,12 +83,12 @@ Deployment:
 // 섹션 구성
 1. Hero Section
    - 임팩트 헤드라인: "쿠팡아웃"
-   - 서브헤드: "25명의 죽음, 3,370만 개인정보 유출"
+   - 서브헤드: "28명의 죽음, 3,370만 개인정보 유출"
    - CTA: "문제점 보기" (→ /why)
    
 2. Stats Section (4개 카드)
    - 산재율 10배 (한국 평균 대비)
-   - 노동자 25명 사망
+   - 노동자 28명 사망
    - 3,370만 개인정보 유출
    - 주 72시간 노동
    - 각 카드: 큰 숫자 + 짧은 설명 + 출처 링크
@@ -297,7 +297,7 @@ interface Issue {
    
 2. 카테고리 탭 네비게이션
    - 전체
-   - 노동 문제 (25명 사망)
+   - 노동 문제 (28명 사망)
    - 개인정보 (3,370만 유출)
    - 갑질 (납품업체)
    - 노조 탄압
@@ -364,14 +364,14 @@ interface Issue {
 ```typescript
 const shareTemplates = {
   labor: {
-    instagram: `쿠팡에서 2020년 이후 25명이 사망했습니다.
+    instagram: `쿠팡에서 2020년 이후 28명이 사망했습니다.
 주 72시간 과로 노동, 더 이상 방치할 수 없습니다.
 
 자세히 보기: coupang-out.com/why
 
 #쿠팡아웃 #쿠팡불매 #노동자의생명 #과로사`,
 
-    twitter: `쿠팡 노동자 25명 사망 (2020~)
+    twitter: `쿠팡 노동자 28명 사망 (2020~)
 주 72시간 과로 노동
 
 우리의 편의가 누군가의 생명을 앗아갑니다.
@@ -379,15 +379,15 @@ const shareTemplates = {
 #쿠팡아웃 #쿠팡불매
 coupang-out.com/why`,
 
-    facebook: `쿠팡의 진실: 25명의 죽음
+    facebook: `쿠팡의 진실: 28명의 죽음
 
-2020년 이후 과로사로 목숨을 잃은 노동자가 25명.
+2020년 이후 과로사로 목숨을 잃은 노동자가 28명.
 주 72시간 노동, 산재율은 한국 평균의 10배입니다.
 
 더 이상 침묵할 수 없습니다.
 coupang-out.com/why`,
 
-    kakao: `쿠팡 노동자 25명 사망 | 쿠팡아웃`
+    kakao: `쿠팡 노동자 28명 사망 | 쿠팡아웃`
   },
   
   privacy: {
@@ -674,7 +674,7 @@ const token = await executeRecaptcha('upload_action')
 export const metadata = {
   metadataBase: new URL('https://coupang-out.com'),
   title: {
-    default: '쿠팡아웃 - 25명의 죽음, 3,370만 개인정보 유출',
+    default: '쿠팡아웃 - 28명의 죽음, 3,370만 개인정보 유출',
     template: '%s | 쿠팡아웃'
   },
   description: '쿠팡의 구조적 문제를 알리고 변화를 만드는 캠페인',
@@ -684,7 +684,7 @@ export const metadata = {
     url: 'https://coupang-out.com',
     siteName: '쿠팡아웃',
     title: '쿠팡아웃 캠페인',
-    description: '노동자 25명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.',
+    description: '노동자 28명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.',
     images: ['/og-image.png'],
   },
   twitter: {
@@ -745,63 +745,9 @@ UPSTASH_REDIS_REST_TOKEN=
 
 **총 소요 시간: 약 3일 (집중 개발)**
 
-## 11. 배포 체크리스트
-
-```markdown
-- [ ] Supabase 설정
-- [ ] Vercel 환경변수
-- [ ] 도메인 연결
-  - [ ] coupang-out.com (메인)
-  - [ ] 쿠팡아웃.com → coupang-out.com 리다이렉트
-- [ ] reCAPTCHA 등록
-- [ ] Kakao 앱 등록
-- [ ] Upstash Redis
-- [ ] OG 이미지 (17개)
-- [ ] robots.txt
-- [ ] sitemap.xml
-- [ ] 테스트 (모바일/크로스브라우저)
-```
-
-## 12. Cursor 프롬프트
-
-```
-Create Coupang Out (쿠팡아웃) campaign website.
-
-Site: coupang-out.com
-Also: 쿠팡아웃.com (redirect to main)
-
-Tech: Next.js 15, TypeScript, Tailwind, Supabase, sharp, reCAPTCHA v3, Framer Motion
-
-Pages:
-1. / - Landing (Hero + Stats + Recent)
-2. /mission - Upload & Gallery (Masonry + Infinite scroll)
-3. /why - Issues with SNS share optimization
-
-Key Features:
-- Image upload: compression → resize → Supabase
-- SNS share: Platform-specific (Instagram/Story/Twitter/Facebook/Kakao)
-- Image download for Instagram (1080x1080, 1080x1920)
-- Text copy for each platform
-- Share count tracking
-- reCAPTCHA v3 + Rate limiting
-
-Install:
-@supabase/supabase-js @tanstack/react-query browser-image-compression 
-sharp framer-motion react-masonry-css @upstash/ratelimit @upstash/redis
-
-shadcn/ui: button card dialog form input textarea tabs toast skeleton badge
-
-Primary: #DC2626
-Mobile-first, 48px buttons
-```
-
----
-
-이제 **쿠팡아웃** 브랜딩으로 모든 내용이 업데이트되었습니다! 🚀
-
 - 사이트명: 쿠팡아웃
 - 메인 도메인: coupang-out.com
 - 한글 도메인: 쿠팡아웃.com (리다이렉트)
 - 해시태그: #쿠팡아웃
-- 이메일: contact@coupang-out.com
+- 이메일: coupangout@gmail.com
 - SNS: @coupangout

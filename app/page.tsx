@@ -15,7 +15,7 @@ export default function Home() {
             쿠팡아웃
           </h1>
           <p className="text-xl md:text-3xl font-light opacity-90 max-w-2xl mx-auto leading-relaxed">
-            25명의 죽음, 3,370만 개인정보 유출. <br className="hidden md:inline" />
+            28명의 죽음, 3,370만 개인정보 유출. <br className="hidden md:inline" />
             우리의 편리함이 누군가의 고통이 되어서는 안 됩니다.
           </p>
           <div className="pt-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -36,7 +36,7 @@ export default function Home() {
               description="한국 평균 대비 (건설업 초과)"
             />
             <StatCard
-              number="25명"
+              number="28명"
               label="사망 노동자 수"
               description="2020년 이후 과로사 및 사고"
             />

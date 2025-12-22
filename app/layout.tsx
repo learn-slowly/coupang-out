@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://coupang-out.com"),
   title: {
-    default: "쿠팡아웃 - 25명의 죽음, 3,370만 개인정보 유출",
+    default: "쿠팡아웃 - 28명의 죽음, 3,370만 개인정보 유출",
     template: "%s | 쿠팡아웃",
   },
-  description: "쿠팡의 구조적 문제를 알리고 변화를 만드는 캠페인. 노동자 25명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.",
+  description: "쿠팡의 구조적 문제를 알리고 변화를 만드는 캠페인. 노동자 28명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.",
   keywords: ["쿠팡", "쿠팡아웃", "노동자", "개인정보유출", "다크패턴", "블랙리스트", "물류센터", "과로사", "Coupang", "로켓배송"],
   authors: [{ name: "Coupang Out Campaign" }],
   creator: "Coupang Out Campaign",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     url: "https://coupang-out.com",
     title: "쿠팡아웃 캠페인",
-    description: "노동자 25명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.",
+    description: "노동자 28명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.",
     siteName: "쿠팡아웃",
     images: [{
       url: "/opengraph-image.png", // Make sure this file exists or update path

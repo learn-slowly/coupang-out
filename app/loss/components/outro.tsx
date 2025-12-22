@@ -48,11 +48,11 @@ export default function Outro() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
-                    className="text-3xl md:text-5xl font-bold"
                 >
-                    우리가 잃어버린 것은<br />
-                    단순한 숫자가 아닙니다.
-                </motion.h2>
+                    <p className="text-xl md:text-2xl text-zinc-400 font-light leading-relaxed">
+                        2020년 이후 <span className="text-red-500 font-bold">28명</span>의 노동자가 집으로 돌아가지 못했습니다.<br />
+                        3,370만 명의 개인정보가 유출되었습니다.
+                    </p></motion.h2>
 
                 <motion.p
                     initial={{ opacity: 0 }}

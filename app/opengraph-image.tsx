@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
-export const alt = '쿠팡아웃 - 25명의 죽음, 3,370만 개인정보 유출'
+export const alt = '쿠팡아웃 - 28명의 죽음, 3,370만 개인정보 유출'
 export const size = {
     width: 1200,
     height: 630,
@@ -77,7 +77,7 @@ export default async function Image() {
                             textAlign: 'center',
                         }}
                     >
-                        25명의 죽음, 3,370만 개인정보 유출
+                        노동자 28명 사망, 3,370만 개인정보 유출
                     </div>
                     <div
                         style={{
