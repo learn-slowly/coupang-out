@@ -1,6 +1,6 @@
 export interface Story {
     id: string;
-    theme: "overwork" | "blacklist" | "fake-goods" | "data-leak";
+    theme: "overwork" | "blacklist" | "fake-goods" | "data-leak" | "algorithm";
     character: string;
     title: string;
     subtitle: string;
@@ -53,5 +53,15 @@ export const stories: Story[] = [
         content: "4년 전 탈퇴했는데 스미싱 문자가 옵니다. 중국 해커의 손에 넘어간 내 정보. 전 국민의 과반수가 잠재적 보이스피싱 피해자가 되었습니다.",
         stat: { label: "개인정보 유출", value: 33700000, unit: "건" },
         highlight: "당신의 정보는 이미 공공재가 되었습니다.",
+    },
+    {
+        id: "story-5",
+        theme: "algorithm",
+        character: "공정거래위원회",
+        title: "1,628억 원",
+        subtitle: "알고리즘 조작의 대가",
+        content: "알고리즘 조작으로 공정거래위원회가 쿠팡에 부과한 역대 최고의 과징금. 자사 상품을 검색 순위 상단에 고정하고 임직원을 동원해 리뷰를 조작했습니다.",
+        stat: { label: "부과 과징금", value: 1628, unit: "억 원" },
+        highlight: "2024년 8월, 공정위 최종 의결.",
     },
 ];
