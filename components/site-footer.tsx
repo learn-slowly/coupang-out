@@ -21,10 +21,6 @@ export function SiteFooter() {
                     <a href="mailto:coupangout@gmail.com" className="hover:underline underline-offset-4">
                         문의하기
                     </a>
-                    <Separator orientation="vertical" className="h-4" />
-                    <a href="https://twitter.com/coupangout" target="_blank" rel="noreferrer" className="hover:underline underline-offset-4">
-                        X (Twitter)
-                    </a>
                 </div>
             </div>
         </footer>
