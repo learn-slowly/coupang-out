@@ -6,7 +6,7 @@ export function SiteFooter() {
         <footer className="py-6 md:py-0 bg-zinc-50 dark:bg-zinc-900 border-t">
             <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row px-4 mx-auto">
                 <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-                    <div className="text-center md:text-left text-sm text-muted-foreground leading-relaxed">
+                    <div className="text-center md:text-left text-[11px] md:text-sm text-muted-foreground leading-tight md:leading-relaxed whitespace-nowrap md:whitespace-normal">
                         <Link href="/makers" className="hover:text-foreground transition-colors">
                             <p>© 2025 <span className="font-semibold">경남 공익 디지털센터: 손에 잡히는 미래 준비팀</span>.</p>
                         </Link>
