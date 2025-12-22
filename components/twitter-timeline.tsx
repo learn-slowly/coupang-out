@@ -10,6 +10,14 @@ declare global {
 }
 
 export function TwitterTimeline() {
+    useEffect(() => {
+        // Safe single-shot trigger for cases where script is cached/already loaded
+        // but component mounted afterwards.
+        if (typeof window !== 'undefined' && window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load();
+        }
+    }, []);
+
     return (
         <div className="w-full bg-white dark:bg-zinc-800 rounded-xl overflow-hidden shadow-sm border h-[600px] flex flex-col">
             <div className="p-4 border-b">
@@ -30,8 +38,14 @@ export function TwitterTimeline() {
                     </a>
                     <Script
                         src="https://platform.twitter.com/widgets.js"
-                        strategy="lazyOnload"
+                        strategy="afterInteractive"
                         charSet="utf-8"
+                        onLoad={() => {
+                            // Trigger load when script finishes loading
+                            if (window.twttr && window.twttr.widgets) {
+                                window.twttr.widgets.load();
+                            }
+                        }}
                     />
                 </div>
             </div>
