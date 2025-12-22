@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 쿠팡아웃 (Coupang Out) 프로젝트
 
-## Getting Started
+> **"편리함 뒤에 가려진 25명의 죽음, 3,370만 명의 개인정보 유출. 우리는 더 이상 침묵하지 않습니다."**
 
-First, run the development server:
+## 📢 프로젝트 소개
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**쿠팡아웃**은 쿠팡의 구조적인 노동 문제와 소비자 기만 행위, 그리고 책임 회피에 맞서 목소리를 내기 위한 시민 참여형 캠페인 플랫폼입니다. ‘로켓배송’이라는 이름 아래 자행되는 비윤리적인 경영 실태를 고발하고, 안전한 노동 환경과 정당한 소비자 권리를 되찾기 위해 시작되었습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+우리는 단순한 비난이 아닌, **팩트(Fact)**와 **데이터(Data)**에 기반한 진실을 알리고 피해자들과 연대합니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔥 우리가 주목하는 문제
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. 멈추지 않는 노동자의 죽음 (Labor Rights)
+쿠팡 칠곡 물류센터 과로사 사건(장덕준 님)을 비롯해, 2020년부터 현재까지 수십 명의 노동자가 열악한 환경 속에서 로켓배송을 위해 목숨을 잃었습니다. '쪼개기 계약'과 '블랙리스트' 작성으로 노동자의 입을 막고, 무한 경쟁 시스템(UPH)으로 노동자를 기계 부품처럼 취급하는 현실을 고발합니다.
 
-## Learn More
+### 2. 역대급 개인정보 유출 (Data Privacy)
+대한민국 인구의 65%에 달하는 **3,370만 건의 개인정보 유출** 사고가 발생했습니다. 이는 단순한 해킹 사고가 아닌, 기업의 보안 불감증이 초래한 인재입니다. 그런데도 쿠팡은 명확한 사과나 보상안 대신 책임을 회피하고 있습니다.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. 소비자 기만과 약탈적 시장 독점 (Consumer Rights)
+'아이템 위너' 시스템을 통해 판매자들의 저작권을 침해하고, 자사 PB 상품(CPLB)을 알고리즘 조작으로 상단에 노출시켜 공정한 경쟁을 방해합니다. 가품(짝퉁) 유통 문제와 해지를 방해하는 교묘한 '다크 패턴(Dark Pattern)'으로 소비자를 기만합니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ✨ 주요 기능 및 콘텐츠
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📽️ 인터랙티브 웹 다큐멘터리: <로켓의 진실>
+"당신의 문 앞, 새벽 5시."로 시작하는 몰입형 스토리텔링을 통해 로켓배송의 편리함 뒤에 숨겨진 구조적 문제를 파헤칩니다.
+- **Intro. 당신의 문 앞, 새벽 5시**: 편리함이라는 마법의 시작
+- **Chapter 1. 멈추지 않는 기계**: 물류센터 노동의 가혹한 현실과 과로사
+- **Chapter 2. 책임은 증발한다**: 덕평 물류센터 화재와 경영진의 책임 회피
+- **Chapter 3. 언제나 쿠팡이 이긴다**: 아이템 위너 시스템과 승자 독식의 구조
+- **Chapter 4. 뚫린 성벽**: 개인정보 유출 사태와 해지를 막는 다크 패턴
+- **Outro. 당신의 선택은?**: 소비자의 연대와 행동 촉구
 
-## Deploy on Vercel
+### 🚀 미션: 쿠팡아웃 챌린지
+행동하는 시민들을 위한 참여 공간입니다. 쿠팡 탈퇴 인증샷을 업로드하고, 서로를 격려하며 연대할 수 있습니다. 리캡차(reCAPTCHA v3)와 레이트 리미팅(Rate Limiting) 기술을 통해 안전하고 깨끗한 챌린지 환경을 제공합니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🔍 팩트체크: 왜 쿠팡아웃인가? (Why Coupang Out?)
+언론 보도와 공식 자료를 바탕으로 쿠팡의 문제점을 심층 분석한 자료실입니다. 노동, 인권, 법적 문제 등 카테고리별로 정리된 이슈 카드뉴스를 제공하며, 클릭 한 번으로 SNS에 공유하여 진실을 퍼뜨릴 수 있습니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 함께하는 방법
+
+이 프로젝트는 누구나 참여할 수 있는 오픈소스 프로젝트가 아닙니다만, 캠페인의 취지에 공감하신다면 **주변에 진실을 공유**하는 것만으로도 큰 힘이 됩니다.
+
+**"당신의 클릭 하나가, 누군가의 생명을 지킬 수 있습니다."**
