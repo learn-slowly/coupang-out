@@ -11,7 +11,7 @@
 **목표**: 12/22까지 2개 핵심 메뉴 완성 (풀 기능)
 
 **포함 메뉴**:
-- ✅ 미션: 쿠팡아웃 인증 (풀 스펙)
+- ✅ 미션: 쿠팡아웃 인증 (메시지 보드 + 탈퇴 가이드)
 - ✅ 왜 쿠팡아웃인가? (풀 스펙)
 - ✅ 쿠팡이 가져간 것들 (인터랙티브 웹 다큐멘터리 1)
 - ✅ 로켓의 진실 (인터랙티브 웹 다큐멘터리 2)
@@ -98,10 +98,9 @@ Deployment:
    - "미션: 쿠팡아웃" → /mission
    - "왜 쿠팡아웃인가?" → /why
    
-4. Recent Activities
-   - 최근 인증샷 6개 (썸네일)
-   - 애니메이션: stagger children
-   - "더 보기" → /mission
+4. Twitter Timeline
+   - @coupang_out 타임라인 임베드
+   - 최신 뉴스 및 캠페인 소식 실시간 확인
    
 5. Footer
    - 캠페인 소개 링크
@@ -134,42 +133,34 @@ Fade-in on scroll (Framer Motion)
 Stagger children: 0.1s delay
 ```
 
-### 4.2 미션: 쿠팡아웃 (/mission) - **풀 스펙**
+### 4.2 미션: 쿠팡아웃 (/mission) - **Message Board Refactor**
 
-**목적**: 인증 업로드 및 참여 독려
+**목적**: 쿠팡 탈퇴 가이드 제공 및 응원 메시지 남기기 (이미지 업로드 제거)
 
 **레이아웃**
 ```typescript
 1. 헤더
    - 제목: "미션: 쿠팡아웃"
-   - 서브: "당신의 선택이 변화를 만듭니다"
+   - 서브: "쿠팡 탈퇴로 우리의 의지를 보여주고, 메시지로 서로를 응원해주세요."
    
-2. 탈퇴 가이드
-   - 쿠팡 탈퇴 방법 (6단계→2단계 간소화 안내)
-   - 스크린샷 예시 이미지
-   - 주의사항 (환불, 쿠팡페이 등)
-   - Accordion 또는 Collapsible로 접기/펼치기
+2. 참여 현황 (상단 배치)
+   - "현재까지 모인 목소리"
+   - 실시간 카운트 (Supabase Realtime)
    
-3. 참여 현황 대시보드
-   - 실시간 카운터: "○○○명 참여" (애니메이션)
-   - 최근 24시간/7일 참여자 수
-   - 간단한 그래프 (선택사항)
+3. 메인 콘텐츠 (2컬럼 레이아웃)
    
-4. 인증샷 업로드 폼
-   - 드래그앤드롭 업로드 영역
-   - 파일 선택 버튼 (대체 옵션)
-   - 이미지 미리보기
-   - 간단한 소감 입력 (선택, 최대 200자)
-   - 업로드 진행률 표시
-   - "인증 완료" 버튼
-   - reCAPTCHA v3 (백그라운드)
-   
-5. 인증샷 갤러리
-   - 무한 스크롤 (React Query + Intersection Observer)
-   - Masonry 레이아웃 (react-masonry-css)
-   - 각 카드: 이미지 + 소감 미리보기 + 날짜
-   - 클릭 시 모달 확대 (이미지 + 전체 소감)
-   - 로딩 스켈레톤
+   Left Column: 탈퇴 가이드 & 입력 폼
+   - 탈퇴 가이드 비디오 (Loop)
+   - Step-by-Step 가이드 (4단계, 잔액 확인 강조)
+   - 메시지 입력 폼
+     - 이메일 (비공개, 수집용)
+     - 메시지 (공개, 500자 제한)
+     - reCAPTCHA v3
+     
+   Right Column: 실시간 메시지 리스트
+   - ScrollArea (최신 50개)
+   - 각 메시지 카드: 랜덤 그라디언트 배경
+   - 실시간 업데이트 (Supabase Subscribe)
 ```
 
 **이미지 처리 플로우**
@@ -199,31 +190,14 @@ Stagger children: 0.1s delay
 
 **데이터 모델**
 ```sql
-CREATE TABLE mission_posts (
+CREATE TABLE mission_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  image_url TEXT NOT NULL,
-  thumbnail_url TEXT NOT NULL,
-  display_url TEXT NOT NULL,  -- 1200x1200
-  comment TEXT,
-  ip_hash TEXT,  -- SHA-256(IP + SALT)
-  recaptcha_score FLOAT,
+  email TEXT NOT NULL, -- 비공개
+  message TEXT NOT NULL,
+  ip_hash TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  is_approved BOOLEAN DEFAULT TRUE,
-  view_count INTEGER DEFAULT 0,
   
-  INDEX idx_created_at DESC,
-  INDEX idx_is_approved WHERE is_approved = TRUE
-);
-
--- 통계 캐시 테이블
-CREATE TABLE mission_stats (
-  id INTEGER PRIMARY KEY DEFAULT 1,
-  total_count INTEGER DEFAULT 0,
-  last_24h_count INTEGER DEFAULT 0,
-  last_7d_count INTEGER DEFAULT 0,
-  updated_at TIMESTAMPTZ DEFAULT NOW(),
-  
-  CHECK (id = 1)
+  INDEX idx_created_at DESC
 );
 ```
 
@@ -589,8 +563,11 @@ CREATE TABLE share_events (
 - **Chapter 1**: 멈추지 않는 기계 (물류센터 노동)
 - **Chapter 2**: 책임은 증발한다 (덕평 화재)
 - **Chapter 3**: 언제나 쿠팡이 이긴다 (아이템 위너, PB)
-- **Chapter 4**: 뚫린 성벽 (개인정보 유출, 다크패턴)
-- **Outro**: 당신의 선택은? (반품하고 연대하기)
+- Chapter 4: 뚫린 성벽 (개인정보 유출, 다크패턴)
+- Chapter 5: CEO 지키기 (책임 회피와 꼬리 자르기)
+  - Noir 스타일, 타자기 효과
+  - SBS 뉴스 기반 팩트 전달
+- Outro: 당신의 선택은? (반품하고 연대하기)
 
 ### 4.6 만든 사람들 (/makers) - **Easter Egg**
 
@@ -741,6 +718,11 @@ UPSTASH_REDIS_REST_TOKEN=
   - 챕터별 스토리텔링 구조
 - ✅ 제작자 소개 페이지 (/makers) 이스터에그 구현
 - ✅ Footer 및 전체적인 UI 디테일 수정
+
+### Day 4 (12/23) - 기능 개선 및 콘텐츠 확장
+- ✅ 미션 페이지 리팩토링: 이미지 인증 → 메시지 보드 (참여 장벽 완화)
+- ✅ Rocket Truth Chapter 5 추가 ("CEO 지키기")
+- ✅ 메인 페이지 Twitter 타임라인 연동 (@coupang_out)
 - ⏳ 최종 빌드 및 배포 점검
 
 **총 소요 시간: 약 3일 (집중 개발)**

@@ -151,7 +151,7 @@ function MissionClientContent() {
             {/* Header */}
             <div className="text-center space-y-4">
                 <Badge variant="outline" className="mb-2 text-red-600 border-red-200 bg-red-50">Mission 01</Badge>
-                <h1 className="text-4xl font-bold tracking-tight">쿠팡 탈퇴</h1>
+                <h1 className="text-4xl font-bold tracking-tight">미션: 쿠팡아웃</h1>
                 <p className="text-xl text-muted-foreground">
                     쿠팡 탈퇴로 우리의 의지를 보여주고, <br className="md:hidden" />
                     메시지로 서로를 응원해주세요.
