@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, AlertCircle } from "lucide-react";
 import { RecentActivities } from "@/components/recent-activities";
 import { ParticipantCounter } from "@/components/participant-counter";
+import { TwitterTimeline } from "@/components/twitter-timeline";
 
 export default function Home() {
   return (
@@ -99,14 +100,25 @@ export default function Home() {
         <div className="container mx-auto max-w-4xl">
           <div className="flex justify-between items-end mb-8">
             <div>
-              <h2 className="text-2xl font-bold">최근 참여 현황</h2>
-              <p className="text-muted-foreground mt-1">실시간으로 인증샷이 올라오고 있습니다.</p>
+              <h2 className="text-3xl font-bold">최근 참여 & 소식</h2>
+              <p className="text-muted-foreground mt-1">캠페인의 최신 현황을 확인하세요.</p>
             </div>
             <Link href="/mission" className="text-sm font-semibold text-red-600 hover:underline">
-              전체 보기 &rarr;
+              메시지 전체 보기 &rarr;
             </Link>
           </div>
-          <RecentActivities />
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Left: Internal Mission Messages Preview (Re-using RecentActivities but modified? No, RecentActivities uses old logic. Let's keep Twitter on full width or split? 
+                 User asked to replace "Recent Activities" with "Twitter Timeline". 
+                 But also we just built a Message Board. It might be good to show BOTH or just Twitter.
+                 The request was "Replace Recent Activities with Twitter". 
+                 Let's stick to the request: Replace "Recent Activities" section content with Twitter. 
+             */}
+            <div className="md:col-span-2">
+              <TwitterTimeline />
+            </div>
+          </div>
         </div>
       </section>
 
