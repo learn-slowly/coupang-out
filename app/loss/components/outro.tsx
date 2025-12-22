@@ -50,8 +50,8 @@ export default function Outro() {
                     transition={{ duration: 1 }}
                 >
                     <p className="text-xl md:text-2xl text-zinc-400 font-light leading-relaxed">
-                        노동 착취, 안전 불감증, 시장 교란, 개인정보 유출.<br />
-                        쿠팡이 야기한 모든 문제의 대가를 우리사회가 치루고 있습니다.
+                        2020년 이후 <span className="text-red-500 font-bold">28명</span>의 노동자가 집으로 돌아가지 못했습니다.<br />
+                        3,370만 명의 개인정보가 유출되었습니다.
                     </p></motion.h2>
 
                 <motion.p
