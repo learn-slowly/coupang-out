@@ -26,7 +26,7 @@ export function TwitterTimeline() {
                             data-lang="ko"
                             data-height="530"
                             data-theme="light" // or auto/dark based on context, hard to sync with system theme perfectly without reload, simple is light or dark. Let's try auto if supported or just default.
-                            href="https://twitter.com/coupangout?ref_src=twsrc%5Etfw"
+                            href="https://twitter.com/coupang_out?ref_src=twsrc%5Etfw"
                         >
                             Loading Tweets...
                         </a>
