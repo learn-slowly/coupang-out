@@ -89,7 +89,7 @@ export function TwitterTimeline() {
                 </div>
 
                 {/* Real Widget container - Hidden strictly until loaded to prevent ugliness */}
-                <div className={`h-full overflow-y-auto custom-scrollbar px-4 py-4 transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+                <div className={`h-full overflow-y-auto custom-scrollbar px-4 py-4 transition-opacity duration-300 ${isLoaded ? 'opacity-100 relative z-10' : 'opacity-0 absolute inset-0 -z-10 pointer-events-none'}`}>
                     <a
                         className="twitter-timeline"
                         href="https://twitter.com/coupang_out?ref_src=twsrc%5Etfw"
