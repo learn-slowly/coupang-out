@@ -22,20 +22,13 @@ export default function Chapter5() {
 
                 {/* Title Section */}
                 <div className="text-center space-y-4">
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                        className="text-red-600 font-mono tracking-widest text-sm"
-                    >
-                        EPISODE.05
-                    </motion.span>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ delay: 0.2 }}
-                        className="text-4xl md:text-6xl font-black tracking-tighter"
+                        className="text-4xl md:text-6xl font-black tracking-tighter text-red-600"
                     >
-                        CEO 지키기
+                        제5장. CEO 지키기
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0 }}
