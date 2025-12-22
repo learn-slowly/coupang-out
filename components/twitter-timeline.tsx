@@ -15,9 +15,25 @@ export function TwitterTimeline() {
     useEffect(() => {
         setIsClient(true)
 
-        // Manual trigger for Twitter widget in case script is already loaded
-        if (typeof window !== 'undefined' && window.twttr && window.twttr.widgets) {
-            window.twttr.widgets.load();
+        // Robust script injection
+        if (typeof window !== 'undefined') {
+            const scriptId = 'twitter-wjs';
+            const scriptSrc = "https://platform.twitter.com/widgets.js";
+
+            // If script doesn't exist, create it
+            if (!document.getElementById(scriptId)) {
+                const script = document.createElement('script');
+                script.id = scriptId;
+                script.src = scriptSrc;
+                script.async = true;
+                document.body.appendChild(script);
+            } else {
+                // If script exists, manually re-scan/load widgets
+                // This covers cases where script loaded but component wasn't ready
+                if (window.twttr && window.twttr.widgets) {
+                    window.twttr.widgets.load();
+                }
+            }
         }
     }, [])
 
@@ -30,7 +46,7 @@ export function TwitterTimeline() {
 
             <div className="h-full overflow-y-auto custom-scrollbar">
                 {isClient && (
-                    <>
+                    <div className="px-4">
                         <a
                             className="twitter-timeline"
                             data-lang="ko"
@@ -40,14 +56,7 @@ export function TwitterTimeline() {
                         >
                             Loading Tweets...
                         </a>
-                        <Script
-                            src="https://platform.twitter.com/widgets.js"
-                            strategy="afterInteractive"
-                            onLoad={() => {
-                                // console.log("Twitter widget loaded")
-                            }}
-                        />
-                    </>
+                    </div>
                 )}
             </div>
         </div>

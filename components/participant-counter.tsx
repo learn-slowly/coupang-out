@@ -16,7 +16,7 @@ export function ParticipantCounter() {
             }
 
             const { count } = await supabase
-                .from('mission_posts')
+                .from('mission_messages')
                 .select('*', { count: 'exact', head: true });
 
             if (count !== null) {

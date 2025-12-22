@@ -180,6 +180,16 @@ function MissionClientContent() {
                             <h2 className="text-2xl font-bold">쿠팡 탈퇴 방법</h2>
                         </div>
 
+                        <div className="rounded-xl overflow-hidden shadow-md bg-black aspect-video mb-6 relative group">
+                            <video
+                                src="/coupang-withdrawal-guide.mp4"
+                                controls
+                                className="w-full h-full object-cover"
+                            >
+                                브라우저가 비디오 태그를 지원하지 않습니다.
+                            </video>
+                        </div>
+
                         <div className="space-y-4">
                             <Card>
                                 <CardContent className="p-6 space-y-4">
@@ -195,6 +205,16 @@ function MissionClientContent() {
                                         <div>
                                             <h3 className="font-bold mb-1">내 정보 관리</h3>
                                             <p className="text-sm text-muted-foreground">회원이름을 클릭하거나 '내 정보 관리' 메뉴로 이동하세요.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <div className="flex-none flex items-center justify-center w-8 h-8 md:w-8 md:h-8 rounded-full bg-red-100 text-red-600 font-bold text-sm">!</div>
+                                        <div>
+                                            <h3 className="font-bold mb-1 text-red-600">잔액 확인 (중요)</h3>
+                                            <p className="text-sm text-muted-foreground">
+                                                <span className="font-semibold text-foreground">쿠팡캐시/쿠페이머니 잔액이 0원</span>이어야 탈퇴가 가능합니다.<br />
+                                                잔액이 있다면 미리 사용하거나 환불받아주세요.
+                                            </p>
                                         </div>
                                     </div>
                                     <div className="flex gap-4">

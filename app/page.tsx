@@ -69,7 +69,7 @@ export default function Home() {
                   <h3 className="text-2xl font-bold">미션: 쿠팡아웃</h3>
                 </div>
                 <p className="text-zinc-600 dark:text-zinc-300 text-lg">
-                  쿠팡 탈퇴 인증샷을 올리고 변화에 동참해주세요.<br />
+                  쿠팡 탈퇴 후, 쿠팡에게 전하고 싶은 한마디를 남겨주세요.<br />
                   <span className="text-red-600 font-semibold mt-2 inline-block">
                     <ParticipantCounter />
                   </span>
