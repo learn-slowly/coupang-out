@@ -17,7 +17,9 @@ export default function Home() {
           </h1>
           <p className="text-xl md:text-3xl font-light opacity-90 max-w-2xl mx-auto leading-relaxed">
             28명의 죽음, 3,370만 개인정보 유출. <br className="hidden md:inline" />
-            우리의 편리함이 누군가의 고통이 되어서는 안 됩니다.
+            쿠팡은 편리함 뒤에 숨은 비극에 답해야 합니다. <br className="hidden md:inline" />
+            쿠팡의 책임 있는 변화를 위해, <br className="hidden md:inline" />
+            지금 우리는 '쿠팡'을 지웁니다.
           </p>
           <div className="pt-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <Button asChild size="lg" variant="secondary" className="font-bold text-red-600 text-xl px-10 py-8 h-auto rounded-full shadow-lg hover:shadow-xl transition-all">
