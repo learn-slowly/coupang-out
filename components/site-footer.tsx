@@ -7,9 +7,7 @@ export function SiteFooter() {
             <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row px-4 mx-auto">
                 <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
                     <div className="text-center md:text-left text-[11px] md:text-sm text-muted-foreground leading-tight md:leading-relaxed whitespace-nowrap md:whitespace-normal">
-                        <Link href="/makers" className="hover:text-foreground transition-colors">
-                            <p>© 2025 <span className="font-semibold">경남 공익 디지털센터: 손에 잡히는 미래 준비팀</span>.</p>
-                        </Link>
+                        <p>© 2025 <span className="font-semibold">정의당</span>.</p>
                         <p>돈보다 생명이 먼저입니다. 공익을 위한 자유로운 공유를 환영합니다.</p>
                     </div>
                 </div>
