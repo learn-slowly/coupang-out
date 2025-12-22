@@ -46,7 +46,7 @@ export default function Outro() {
           </h2>
           <p className="text-lg text-zinc-300 leading-relaxed">
             노동 착취, 안전 불감증, 시장 교란, 개인정보 유출.<br />
-            이 모든 비용은 결국 우리가 치르게 됩니다.
+            쿠팡이 야기한 모든 문제의 대가를 우리사회가 치루고 있습니다.
           </p>
         </motion.div>
 
