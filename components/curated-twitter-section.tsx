@@ -3,10 +3,15 @@ import { Tweet } from "react-tweet";
 import { TwitterTimeline } from "./twitter-timeline"; // Fallback/View All
 
 export async function CuratedTwitterSection() {
-    const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+        console.error("Supabase keys are missing in CuratedTwitterSection");
+        return <TwitterTimeline />;
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { data: tweets } = await supabase
         .from("curated_tweets")

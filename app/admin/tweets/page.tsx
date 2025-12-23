@@ -18,10 +18,19 @@ export default async function AdminTweetsPage() {
     }
 
     // Fetch tweets
-    const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+        return (
+            <div className="min-h-screen bg-zinc-950 p-8 text-white">
+                <h1 className="text-2xl font-bold text-red-500">설정 오류</h1>
+                <p>환경 변수(NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY)가 설정되지 않았습니다.</p>
+            </div>
+        );
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { data: tweets, error } = await supabase
         .from("curated_tweets")
