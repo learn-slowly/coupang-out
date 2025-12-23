@@ -119,8 +119,7 @@ export default function Home() {
                  Let's stick to the request: Replace "Recent Activities" section content with Twitter. 
              */}
             <div className="md:col-span-2">
-              <TwitterTimeline />
-              {/* <CuratedTwitterSection /> Temporarily disabled due to 500 error */}
+              <CuratedTwitterSection />
             </div>
           </div>
         </div>
