@@ -101,7 +101,7 @@ export default async function AdminTweetsPage({
                             <div key={tweet.id} className="flex items-center justify-between p-4 bg-white border border-zinc-200 rounded-lg group hover:border-zinc-300 transition-colors shadow-sm">
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-bold text-zinc-500">
-                                        X
+                                        {tweet.display_order ?? 0}
                                     </div>
                                     <div className="space-y-1">
                                         <p className="font-mono text-lg font-medium text-zinc-900">{tweet.tweet_id}</p>
@@ -116,17 +116,40 @@ export default async function AdminTweetsPage({
                                     </div>
                                 </div>
 
-                                <form action={deleteTweet}>
-                                    <input type="hidden" name="id" value={tweet.id} />
-                                    <Button
-                                        type="submit"
-                                        variant="destructive"
-                                        size="sm"
-                                        className="opacity-70 group-hover:opacity-100 transition-opacity"
-                                    >
-                                        <Trash2 className="w-4 h-4 mr-2" /> 삭제
-                                    </Button>
-                                </form>
+                                <div className="flex items-center gap-2">
+                                    <form action={updateTweetOrder} className="flex items-center gap-2">
+                                        <input type="hidden" name="id" value={tweet.id} />
+                                        <div className="flex items-center gap-1">
+                                            <span className="text-xs text-zinc-400">순서</span>
+                                            <Input
+                                                type="number"
+                                                name="order"
+                                                defaultValue={tweet.display_order ?? 0}
+                                                className="w-16 h-8 text-sm bg-white border-zinc-300"
+                                            />
+                                        </div>
+                                        <Button
+                                            type="submit"
+                                            variant="secondary"
+                                            size="sm"
+                                            className="h-8 hover:bg-zinc-200"
+                                        >
+                                            저장
+                                        </Button>
+                                    </form>
+
+                                    <form action={deleteTweet}>
+                                        <input type="hidden" name="id" value={tweet.id} />
+                                        <Button
+                                            type="submit"
+                                            variant="destructive"
+                                            size="sm"
+                                            className="h-8 opacity-70 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </Button>
+                                    </form>
+                                </div>
                             </div>
                         ))}
                     </div>

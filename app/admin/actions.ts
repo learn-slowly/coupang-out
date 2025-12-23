@@ -22,10 +22,10 @@ export async function login(formData: FormData) {
             maxAge: 60 * 60 * 24, // 1 day
             path: "/",
         });
+        return { success: true };
     } else {
         return { success: false, message: "비밀번호가 올바르지 않습니다." };
     }
-    redirect("/admin/tweets");
 }
 
 export async function logout() {
@@ -133,6 +133,37 @@ export async function deleteTweet(formData: FormData) {
     if (errorMessage) {
         const msg = encodeURIComponent(errorMessage);
         redirect(`/admin/tweets?error=${msg}`);
+    }
+
+    revalidatePath('/');
+    revalidatePath('/admin/tweets');
+    redirect("/admin/tweets");
+}
+revalidatePath('/');
+revalidatePath('/admin/tweets');
+redirect("/admin/tweets");
+}
+
+export async function updateTweetOrder(formData: FormData) {
+    await checkAuth();
+
+    const id = formData.get("id") as string;
+    const order = parseInt(formData.get("order") as string);
+
+    if (isNaN(order)) {
+        redirect("/admin/tweets?error=" + encodeURIComponent("유효한 순서 번호가 아닙니다."));
+    }
+
+    const supabaseAdmin = getSupabaseAdmin();
+
+    const { error } = await supabaseAdmin
+        .from("curated_tweets")
+        .update({ display_order: order })
+        .eq("id", id);
+
+    if (error) {
+        console.error("Update Order Error:", error);
+        redirect("/admin/tweets?error=" + encodeURIComponent("순서 변경 실패: " + error.message));
     }
 
     revalidatePath('/');
