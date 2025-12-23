@@ -9,36 +9,25 @@ import { Trash2, ExternalLink } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
-export default async function AdminTweetsPage() {
+export default async function AdminTweetsPage({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined }
+}) {
+    const sp = await searchParams; // Next.js 15+ needs await for searchParams
+    const errorMessage = sp?.error as string | undefined;
+
     const cookieStore = await cookies();
     const session = cookieStore.get("admin_session");
-
-    if (!session) {
-        redirect("/admin/login");
-    }
-
-    // Fetch tweets
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-    if (!supabaseUrl || !supabaseKey) {
-        return (
-            <div className="min-h-screen bg-zinc-950 p-8 text-white">
-                <h1 className="text-2xl font-bold text-red-500">설정 오류</h1>
-                <p>환경 변수(NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY)가 설정되지 않았습니다.</p>
-            </div>
-        );
-    }
-
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    const { data: tweets, error } = await supabase
-        .from("curated_tweets")
-        .select("*")
-        .order("created_at", { ascending: false });
-
+    // ... existing code ...
     return (
         <div className="min-h-screen bg-zinc-950 p-8 text-white max-w-4xl mx-auto space-y-8">
+            {/* Error Alert */}
+            {errorMessage && (
+                <div className="bg-red-500/10 border border-red-500/50 p-4 rounded-lg text-red-500 font-medium">
+                    ⚠️ {decodeURIComponent(errorMessage)}
+                </div>
+            )}
             <header className="flex justify-between items-center border-b border-zinc-800 pb-6">
                 <div>
                     <h1 className="text-3xl font-bold">큐레이션 트윗 관리</h1>
