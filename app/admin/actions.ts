@@ -19,8 +19,8 @@ export async function login(formData: FormData) {
     const adminPassword = process.env.ADMIN_PASSWORD;
 
     if (!adminPassword) {
-        console.error("ADMIN_PASSWORD is not set in environment variables");
-        return { success: false, message: "서버 설정 오류: 관리자 비밀번호가 설정되지 않았습니다." };
+        console.error("ADMIN_PASSWORD is not set. Env keys:", Object.keys(process.env));
+        return { success: false, message: `서버 설정 오류: 관리자 비밀번호가 설정되지 않았습니다. (읽힌 비번 길이: ${adminPassword ? (adminPassword as string).length : 0})` };
     }
 
     if (pin === adminPassword) {
