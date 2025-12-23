@@ -65,7 +65,7 @@ export default async function AdminTweetsPage() {
                         <Input
                             name="url"
                             placeholder="트윗 URL 예: https://twitter.com/user/status/1234567890"
-                            className="flex-1 bg-zinc-950 border-zinc-700"
+                            className="flex-1 bg-zinc-950 border-zinc-700 text-white"
                             required
                         />
                         <Button type="submit" className="bg-white text-black hover:bg-zinc-200">
