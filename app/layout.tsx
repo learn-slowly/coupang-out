@@ -89,6 +89,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/next";
 
 import { GoogleTagManager } from "@next/third-parties/google";
 
@@ -120,6 +121,7 @@ export default function RootLayout({
           </main>
           <SiteFooter />
           <Toaster />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
