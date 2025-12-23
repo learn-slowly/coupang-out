@@ -55,6 +55,9 @@ export default async function AdminTweetsPage({
                 <div>
                     <h1 className="text-3xl font-bold">큐레이션 트윗 관리</h1>
                     <p className="text-zinc-500 mt-1">메인 페이지에 노출될 트윗을 관리합니다.</p>
+                    <p className="text-xs text-zinc-400 mt-2 bg-zinc-100 dark:bg-zinc-800 p-2 rounded inline-block">
+                        💡 <strong>순서 팁:</strong> 숫자가 <strong>작을수록</strong> 먼저(상단에) 노출됩니다. (예: 1번이 가장 위, 0번은 기본값)
+                    </p>
                 </div>
                 <form action={async () => {
                     "use server"
