@@ -19,7 +19,7 @@ export async function CuratedTwitterSection() {
             .select("tweet_id")
             .order("display_order", { ascending: true }) // Or created_at if order is not set
             .order("created_at", { ascending: false })
-            .limit(3);
+            .limit(5);
 
         if (error) {
             console.error("Error fetching tweets:", error);
