@@ -76,14 +76,14 @@ export default async function AdminTweetsPage({
                     <CardTitle>새 트윗 추가</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <form action={addTweet} className="flex gap-4">
+                    <form action={addTweet} className="flex flex-col sm:flex-row gap-4">
                         <Input
                             name="url"
                             placeholder="트윗 URL 예: https://twitter.com/user/status/1234567890"
                             className="flex-1 bg-white border-zinc-300 text-zinc-900 placeholder:text-zinc-400"
                             required
                         />
-                        <Button type="submit" className="bg-zinc-900 text-white hover:bg-zinc-800">
+                        <Button type="submit" className="bg-zinc-900 text-white hover:bg-zinc-800 w-full sm:w-auto">
                             추가하기
                         </Button>
                     </form>
@@ -101,13 +101,13 @@ export default async function AdminTweetsPage({
                 ) : (
                     <div className="grid gap-4">
                         {tweets?.map((tweet) => (
-                            <div key={tweet.id} className="flex items-center justify-between p-4 bg-white border border-zinc-200 rounded-lg group hover:border-zinc-300 transition-colors shadow-sm">
+                            <div key={tweet.id} className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-white border border-zinc-200 rounded-lg group hover:border-zinc-300 transition-colors shadow-sm gap-4">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-bold text-zinc-500">
+                                    <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-bold text-zinc-500 shrink-0">
                                         {tweet.display_order ?? 0}
                                     </div>
-                                    <div className="space-y-1">
-                                        <p className="font-mono text-lg font-medium text-zinc-900">{tweet.tweet_id}</p>
+                                    <div className="space-y-1 min-w-0">
+                                        <p className="font-mono text-lg font-medium text-zinc-900 truncate">{tweet.tweet_id}</p>
                                         <a
                                             href={`https://twitter.com/i/status/${tweet.tweet_id}`}
                                             target="_blank"
@@ -119,7 +119,7 @@ export default async function AdminTweetsPage({
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 justify-end w-full md:w-auto">
                                     <form action={updateTweetOrder} className="flex items-center gap-2">
                                         <input type="hidden" name="id" value={tweet.id} />
                                         <div className="flex items-center gap-1">
