@@ -71,13 +71,22 @@ async function checkAuth() {
 
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
-const supabaseAdmin = createSupabaseClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+// Helper to get admin client lazily
+function getSupabaseAdmin() {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!url || !key) {
+        throw new Error("Supabase environment variables are missing.");
+    }
+
+    return createSupabaseClient(url, key);
+}
 
 export async function addTweet(formData: FormData) {
     await checkAuth();
+
+    const supabaseAdmin = getSupabaseAdmin();
 
     const urlOrId = formData.get("url") as string;
     if (!urlOrId) {
@@ -121,6 +130,8 @@ export async function addTweet(formData: FormData) {
 export async function deleteTweet(formData: FormData) {
     await checkAuth();
     const id = formData.get("id") as string;
+
+    const supabaseAdmin = getSupabaseAdmin();
 
     const { error } = await supabaseAdmin
         .from("curated_tweets")
