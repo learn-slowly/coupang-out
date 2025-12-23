@@ -5,6 +5,7 @@ import { CheckCircle2, AlertCircle } from "lucide-react";
 import { RecentActivities } from "@/components/recent-activities";
 import { ParticipantCounter } from "@/components/participant-counter";
 import { TwitterTimeline } from "@/components/twitter-timeline";
+import { CuratedTwitterSection } from "@/components/curated-twitter-section";
 
 export default function Home() {
   return (
@@ -118,7 +119,7 @@ export default function Home() {
                  Let's stick to the request: Replace "Recent Activities" section content with Twitter. 
              */}
             <div className="md:col-span-2">
-              <TwitterTimeline />
+              <CuratedTwitterSection />
             </div>
           </div>
         </div>

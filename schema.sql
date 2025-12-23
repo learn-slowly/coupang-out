@@ -28,4 +28,23 @@ CREATE POLICY "Anyone can insert messages"
 ON mission_messages FOR INSERT 
 WITH CHECK (true);
 
--- 3. 업데이트/삭제는 불가 (관리자만 가능 - Supabase 대시보드에서 처리)
+
+-- 4. 큐레이션 트윗 관리 테이블
+CREATE TABLE curated_tweets (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tweet_id TEXT NOT NULL,
+  description TEXT,
+  display_order INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- RLS
+ALTER TABLE curated_tweets ENABLE ROW LEVEL SECURITY;
+
+-- 누구나 조회 가능
+CREATE POLICY "Curated tweets are viewable by everyone" 
+ON curated_tweets FOR SELECT 
+USING (true);
+
+-- 관리자만 수정 가능 (Supabase 대시보드 사용 전제)
+-- 별도 Admin API 구현 시 Service Role 키 사용 예정
