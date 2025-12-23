@@ -16,6 +16,7 @@
 - ✅ 쿠팡이 가져간 것들 (인터랙티브 웹 다큐멘터리 1)
 - ✅ 로켓의 진실 (인터랙티브 웹 다큐멘터리 2)
 - ✅ 만든 사람들 (이스터에그)
+- ✅ [NEW] 관리자 페이지 (트윗 큐레이션)
 
 **제외 메뉴 (v2 업데이트 예정)**:
 - ⏳ 쿠없세 (쿠팡 없는 세상: 대안 플랫폼 큐레이션)
@@ -98,9 +99,10 @@ Deployment:
    - "미션: 쿠팡아웃" → /mission
    - "왜 쿠팡아웃인가?" → /why
    
-4. Twitter Timeline
-   - @coupang_out 타임라인 임베드
-   - 최신 뉴스 및 캠페인 소식 실시간 확인
+4. Curated Twitter Section (Masonry Layout)
+   - 관리자가 선정한 Top 5 트윗 노출
+   - Pinterest 스타일 Masonry 레이아웃
+   - 모바일 최적화 (간격 조정)
    
 5. Footer
    - 캠페인 소개 링크
@@ -576,6 +578,19 @@ CREATE TABLE share_events (
 - **자동 폭파**: 페이지 진입 10초 후 메인으로 자동 리다이렉트 (Timer UI).
 - **내용**: 제작자(Human)의 진솔한 이야기와 바이브 코딩(AI 협업) 소개.
 
+### 4.7 관리자 페이지 (/admin) - **Tweet Curation**
+
+**목적**: 메인 페이지에 노출될 트윗을 선별하고 관리.
+
+**기능**:
+1.  **로그인**: PIN 번호 기반 간편 인증.
+2.  **대시보드**:
+    - **트윗 추가**: URL 입력 시 ID 자동 추출.
+    - **순서 변경**: 숫자 입력으로 노출 순서 제어 (낮은 숫자 우선).
+    - **삭제**: 리스트에서 즉시 삭제.
+    - **미리보기**: 원본 트윗 링크 제공.
+3.  **디자인**: 가독성 높은 흰색 테마 (Light Theme), 모바일 반응형.
+
 ```
 
 ## 5. 네비게이션 구조
@@ -662,7 +677,7 @@ export const metadata = {
     siteName: '쿠팡아웃',
     title: '쿠팡아웃 캠페인',
     description: '노동자 28명 사망, 3,370만 개인정보 유출. 더 이상 침묵하지 않겠습니다.',
-    images: ['/og-image.png'],
+    images: ['/opengraph-image.png'], // 사용자 커스텀 정적 이미지
   },
   twitter: {
     card: 'summary_large_image',
@@ -685,6 +700,7 @@ NEXT_PUBLIC_SITE_URL=https://coupang-out.com
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
+ADMIN_PASSWORD=
 
 # reCAPTCHA
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=
@@ -722,8 +738,10 @@ UPSTASH_REDIS_REST_TOKEN=
 ### Day 4 (12/23) - 기능 개선 및 콘텐츠 확장
 - ✅ 미션 페이지 리팩토링: 이미지 인증 → 메시지 보드 (참여 장벽 완화)
 - ✅ Rocket Truth Chapter 5 추가 ("CEO 지키기")
-- ✅ 메인 페이지 Twitter 타임라인 연동 (@coupang_out)
-- ⏳ 최종 빌드 및 배포 점검
+- ✅ 관리자(Admin) 큐레이션 시스템 구축
+- ✅ 메인 페이지 트윗 섹션 고도화 (Masonry, 5개 노출)
+- ✅ OG(Open Graph) 이미지 업데이트
+- ✅ 최종 빌드 및 배포 점검
 
 **총 소요 시간: 약 3일 (집중 개발)**
 
