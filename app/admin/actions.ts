@@ -139,10 +139,6 @@ export async function deleteTweet(formData: FormData) {
     revalidatePath('/admin/tweets');
     redirect("/admin/tweets");
 }
-revalidatePath('/');
-revalidatePath('/admin/tweets');
-redirect("/admin/tweets");
-}
 
 export async function updateTweetOrder(formData: FormData) {
     await checkAuth();
