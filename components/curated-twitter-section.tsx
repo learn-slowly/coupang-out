@@ -36,9 +36,9 @@ export async function CuratedTwitterSection() {
 
         return (
             <div className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                     {tweets.map((t) => (
-                        <div key={t.tweet_id} className="light dark:dark">
+                        <div key={t.tweet_id} className="light dark:dark break-inside-avoid mb-6">
                             {/* react-tweet theme support: standard uses light/dark classes or theme prop */}
                             <Tweet id={t.tweet_id} />
                         </div>
