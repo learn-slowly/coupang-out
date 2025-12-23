@@ -35,6 +35,7 @@ export async function CuratedTwitterSection() {
         }
 
         return (
+            <div className="space-y-8">
                 <div className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-6">
                     {tweets.map((t) => (
                         <div key={t.tweet_id} className="light dark:dark break-inside-avoid mb-4 md:mb-6">
@@ -48,14 +49,6 @@ export async function CuratedTwitterSection() {
                     <h3 className="text-lg font-bold mb-2">모든 소식을 실시간으로 확인하세요</h3>
                     <p className="text-muted-foreground mb-6">@coupang_out 공식 계정에서 더 많은 이야기를 나눕니다.</p>
 
-                    {/* Collapsible or Link to Widget?
-                        User asked for "Bottom View All button -> Modal or Widget".
-                        Let's put the widget inside a details/summary or a simple toggle?
-                        Or just a link to Twitter.
-                        The plan said: "View All" button linking to full timeline or modal.
-                        Let's implement a simple details element for now or just the link button from the original component.
-                    */}
-
                     <a
                         href="https://twitter.com/coupang_out"
                         target="_blank"
@@ -66,7 +59,7 @@ export async function CuratedTwitterSection() {
                         트위터에서 전체 보기
                     </a>
                 </div>
-            </div >
+            </div>
         );
     } catch (e) {
         console.error("Critical error in CuratedTwitterSection:", e);
