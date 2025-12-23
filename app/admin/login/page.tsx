@@ -1,28 +1,15 @@
 "use client";
 
-import { useActionState } from "react";
 import { login } from "../actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Lock } from "lucide-react";
 import { useState } from "react";
-
-const initialState = {
-    success: false,
-    message: "",
-};
+import { useRouter } from "next/navigation";
 
 export default function AdminLoginPage() {
-    // Using a wrapper around the action to match useActionState signature if needed, 
-    // or simply handle form submission. Next.js 15 uses useActionState (formerly useFormState).
-    // Let's stick to simple form action or useActionState if available in React 19.
-    // Given package.json has React 19, we use useActionState (it might be in 'react').
-    // Note: useActionState was renamed from useFormState.
-
-    // Actually, for simplicity and compatibility, let's just use a client handler calling server action.
-    // But standard way is useActionState.
-
+    const router = useRouter();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -31,14 +18,20 @@ export default function AdminLoginPage() {
         setError("");
 
         try {
-            const result = await login(formData); // This handles redirect on success
-            if (result && !result.success) {
-                setError(result.message);
+            const result = await login(formData);
+
+            if (result && result.success) {
+                // Success: Redirect manually
+                router.push("/admin/tweets");
+                // Don't set loading false to avoid button flicker
+            } else {
+                // Fail
+                setError(result?.message || "로그인 실패");
+                setLoading(false);
             }
         } catch (e) {
             console.error(e);
             setError("로그인 중 오류가 발생했습니다.");
-        } finally {
             setLoading(false);
         }
     }
@@ -77,7 +70,7 @@ export default function AdminLoginPage() {
                             className="w-full bg-red-600 hover:bg-red-700 text-white font-bold"
                             disabled={loading}
                         >
-                            {loading ? "확인 중..." : "접속하기"}
+                            {loading ? "접속 중..." : "접속하기"}
                         </Button>
                     </form>
                 </CardContent>
