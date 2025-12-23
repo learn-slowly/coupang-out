@@ -35,10 +35,9 @@ export async function CuratedTwitterSection() {
         }
 
         return (
-            <div className="space-y-8">
-                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-6">
                     {tweets.map((t) => (
-                        <div key={t.tweet_id} className="light dark:dark break-inside-avoid mb-6">
+                        <div key={t.tweet_id} className="light dark:dark break-inside-avoid mb-4 md:mb-6">
                             {/* react-tweet theme support: standard uses light/dark classes or theme prop */}
                             <Tweet id={t.tweet_id} />
                         </div>
@@ -67,7 +66,7 @@ export async function CuratedTwitterSection() {
                         트위터에서 전체 보기
                     </a>
                 </div>
-            </div>
+            </div >
         );
     } catch (e) {
         console.error("Critical error in CuratedTwitterSection:", e);
